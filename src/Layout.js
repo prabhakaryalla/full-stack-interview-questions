@@ -57,7 +57,7 @@ function Layout() {
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
                     <Routes>
-                        <Route path="/interviewquestions/:rootpath/:filename" element={<InterviewQuestions />}>
+                        <Route path="/full-stack-interview-questions/:rootpath/:filename" element={<InterviewQuestions />}>
                         </Route>
                     </Routes>
                 </main>

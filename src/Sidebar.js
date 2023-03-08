@@ -18,7 +18,7 @@ function Sidebar({ items }) {
                                 <List disablePadding dense>
                                     {subItems.map((subItem) => {
                                         return (
-                                            <Link to= {"/interviewquestions/" + subItem.rootpath + "/" + subItem.filename}  style={{ textDecoration: 'none' }} >
+                                            <Link to= {"/full-stack-interview-questions/" + subItem.rootpath + "/" + subItem.filename}  style={{ textDecoration: 'none' }} >
                                                 <ListItem
                                                     key={subItem.name}
                                                     style={{ paddingLeft: 36 }}
