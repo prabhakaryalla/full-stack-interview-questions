@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 1,
     },
     drawer: {
-        width: 150,
+        width: 120,
         flexShrink: 0,
     },
     drawerPaper: {
-        width: 150,
+        width: 120,
     },
     toolbar: theme.mixins.toolbar,
     content: {
