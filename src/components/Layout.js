@@ -59,8 +59,8 @@ function Layout() {
                     <div className={classes.toolbar} />
                     <Scroll showBelow={290} />
                     <Routes>
-                        <Route path="/full-stack-interview-questions/:rootpath/:filename" element={<InterviewQuestions />}>
-                        </Route>
+                        <Route path="/full-stack-interview-questions" element={<InterviewQuestions />} />
+                        <Route path="/full-stack-interview-questions/:rootpath/:filename" element={<InterviewQuestions />} />
                     </Routes>
                 </main>
             </div>

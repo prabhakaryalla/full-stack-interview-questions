@@ -13,7 +13,18 @@
   },
   {
     "name": "dotnet", "label": ".Net", "items": [
-      {  "name": "dotnetcore", "label": ".Net Core" }
+      {  "name": "dotnetcore", "label": ".Net Core", "rootpath": "dotnet", "filename": "dotnet-core" }
     ]
+  },
+  {
+    "name": "sql", "label": "SQL", "items": [
+      {  "name": "sql", "label": "SQL", "rootpath": "sql", "filename": "sql-basics" }
+    ]
+  },
+  {
+    "name": "javascript", "label": "JavaScript", "rootpath": "javascript", "filename": "javascript"
+  },
+  {
+    "name": "azure", "label": "Azure", "rootpath": "azure", "filename": "azure"
   }
 ]

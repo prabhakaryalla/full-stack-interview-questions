@@ -8,3 +8,7 @@ In this website you can find all the full stack interview questions at one place
 You can also find the interview questions in repository
 - [C#](./docs/csharp/csharp-basics.md)
 - [React JS](./docs/reactjs/reactjs-basics.md)
+- [Javascript](./docs/javascript/javascript.md)
+- [.NET Core](./docs/dotnet/dotnet-core.md)
+- [SQL](./docs/sql/sql-basics.md)
+- [Azure](./docs/azure/azure.md)

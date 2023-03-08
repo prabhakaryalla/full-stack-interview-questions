@@ -11,7 +11,8 @@ const InterviewQuestions = () => {
     const [post, setPost] = useState('');
 
     useEffect(() => {
-        import(`../../docs/${rootpath}/${filename}.md`)
+        const filepath = (rootpath ? rootpath : "csharp" ) + "/" + (filename ? filename : "csharp-basics") + ".md";
+        import(`../../docs/${filepath}`)
             .then(res => {
                 fetch(res.default)
                     .then(res => res.text())

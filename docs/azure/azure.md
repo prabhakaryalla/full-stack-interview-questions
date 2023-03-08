@@ -1,0 +1,25 @@
+## Azure Interview Questions & Answers
+
+### Questions
+
+- [What is scaleup and sacleout?](#)
+- [What is the difference between storage account queues and service bus queues](#)
+- [Different types of APP service plans?](#)
+- [What is the difference between web job and function app](#)
+- [Different types of triggers in web job?](#)
+- [What are app registrations](#)
+- [How do we configure Authentication](#)
+- [What are keyVaults?](#)
+- [What is APIM](#)
+- [Different types of storage accounts? ](#)
+- [What is append blob and block blob?](#)
+- [What is CORS ?](#)
+- [What are Logic apps?](#)
+- [How to run Logic apps in syncoronous mode (parallelism)](#)
+- [what are recieve modes in service bus?](#)
+- [When to go for Event hub?](#)
+- [](#)
+- [](#)
+- [](#)
+- [](#)
+- [](#)

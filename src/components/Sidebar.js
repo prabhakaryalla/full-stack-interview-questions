@@ -8,12 +8,20 @@ function Sidebar({ items }) {
     return (
         <div className="sidebar">
             <List disablePadding dense>
-                {items.map(({ label, name, items: subItems, ...rest }) => {
+                {items.map(({ label, name, items: subItems, rootpath, filename, ...rest }) => {
                     return (
-                        <React.Fragment key={name}>
-                            <ListItem style={{ paddingLeft: 18 }} button {...rest}>
-                                <ListItemText>{label}</ListItemText>
-                            </ListItem>
+                        <React.Fragment key={name}>  
+                            {rootpath ?
+                                (<Link to={"/full-stack-interview-questions/" + rootpath + "/" + filename} style={{ textDecoration: 'none' }} >
+                                    <ListItem style={{ paddingLeft: 18 }} button {...rest}>
+                                        <ListItemText>{label}</ListItemText>
+                                    </ListItem>
+                                </Link>) :
+                                (
+                                    <ListItem style={{ paddingLeft: 18 }} button {...rest}>
+                                        <ListItemText>{label}</ListItemText>
+                                    </ListItem>
+                                )}
                             {Array.isArray(subItems) ? (
                                 <List disablePadding dense>
                                     {subItems.map((subItem) => {
