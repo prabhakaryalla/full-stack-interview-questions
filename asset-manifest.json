@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/full-stack-interview-questions/static/css/main.c0ffacc2.css",
-    "main.js": "/full-stack-interview-questions/static/js/main.ae07bca1.js",
+    "main.js": "/full-stack-interview-questions/static/js/main.0858bad5.js",
     "static/js/547.3662bd61.chunk.js": "/full-stack-interview-questions/static/js/547.3662bd61.chunk.js",
     "static/js/131.61d4ecaf.chunk.js": "/full-stack-interview-questions/static/js/131.61d4ecaf.chunk.js",
     "static/js/787.a05e8bec.chunk.js": "/full-stack-interview-questions/static/js/787.a05e8bec.chunk.js",
@@ -9,11 +9,11 @@
     "index.html": "/full-stack-interview-questions/index.html",
     "static/media/reactjs-basics.md": "/full-stack-interview-questions/static/media/reactjs-basics.f753ee57b89318ba83de.md",
     "main.c0ffacc2.css.map": "/full-stack-interview-questions/static/css/main.c0ffacc2.css.map",
-    "main.ae07bca1.js.map": "/full-stack-interview-questions/static/js/main.ae07bca1.js.map",
+    "main.0858bad5.js.map": "/full-stack-interview-questions/static/js/main.0858bad5.js.map",
     "787.a05e8bec.chunk.js.map": "/full-stack-interview-questions/static/js/787.a05e8bec.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c0ffacc2.css",
-    "static/js/main.ae07bca1.js"
+    "static/js/main.0858bad5.js"
   ]
 }
