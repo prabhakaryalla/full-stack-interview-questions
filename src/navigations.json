@@ -1,0 +1,19 @@
+[
+  {
+    "name": "csharp", "label": "CSharp",
+    "items": [
+       { "name": "basics", "label": "Basics", "rootpath": "csharp", "filename": "csharp-basics" }
+    ]
+  },
+  {
+    "name": "reactjs", "label": "React JS",  "items": [
+      { "name": "basics", "label": "Basics", "rootpath": "reactjs", "filename": "reactjs-basics" },
+      { "name": "advanced", "label": "Advanced", "rootpath": "reactjs", "filename": "reactjs-advanced" }
+    ]
+  },
+  {
+    "name": "dotnet", "label": ".Net", "items": [
+      {  "name": "dotnetcore", "label": ".Net Core" }
+    ]
+  }
+]
