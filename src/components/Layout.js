@@ -4,8 +4,9 @@ import { AppBar, Toolbar, Typography, Drawer, IconButton } from '@material-ui/co
 import MenuIcon from '@material-ui/icons/Menu';
 import Sidebar from './Sidebar';
 import InterviewQuestions from './InterviewQuestions';
-import navigations from './navigations.json';
+import navigations from '../navigations.json';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Scroll from './Scroll';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 1,
     },
     drawer: {
-        width: 240,
+        width: 150,
         flexShrink: 0,
     },
     drawerPaper: {
-        width: 240,
+        width: 150,
     },
     toolbar: theme.mixins.toolbar,
     content: {
@@ -56,6 +57,7 @@ function Layout() {
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
+                    <Scroll showBelow={290} />
                     <Routes>
                         <Route path="/full-stack-interview-questions/:rootpath/:filename" element={<InterviewQuestions />}>
                         </Route>

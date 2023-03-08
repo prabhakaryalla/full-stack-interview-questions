@@ -11,7 +11,7 @@ const InterviewQuestions = () => {
     const [post, setPost] = useState('');
 
     useEffect(() => {
-        import(`../docs/${rootpath}/${filename}.md`)
+        import(`../../docs/${rootpath}/${filename}.md`)
             .then(res => {
                 fetch(res.default)
                     .then(res => res.text())
