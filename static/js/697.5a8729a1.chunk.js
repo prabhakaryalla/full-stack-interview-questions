@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[697],{1697:function(e,t,s){e.exports=s.p+"static/media/dotnet-core.ebfdb5520110599123c0.md"}}]);

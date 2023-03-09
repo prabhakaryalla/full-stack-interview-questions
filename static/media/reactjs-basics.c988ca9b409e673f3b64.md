@@ -20,7 +20,7 @@
 - [Do Hooks replace render props and higher-order components?](#)
 - [How can I make an AJAX call?](#)
 - [Where in the component lifecycle should I make an AJAX call? ](#)
-- [Babel](#)
+- [What is Babel?](#)
 - [Why is my function being called every time the component renders?](#)
 - [throttling, debouncing, requestAnimationFrame throttling](#)
 - [What is the difference between state and props? ](#)
