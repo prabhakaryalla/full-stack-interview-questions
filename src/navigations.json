@@ -1,15 +1,13 @@
 [
   {
-    "name": "csharp", "label": "CSharp",
+    "name": "csharp", "label": "C#",
     "items": [
-       { "name": "basics", "label": "Basics", "rootpath": "csharp", "filename": "csharp-basics" }
+       { "name": "basics", "label": "Basics", "rootpath": "csharp", "filename": "csharp-basics" },
+       { "name": "programs", "label": "Programs", "rootpath": "csharp", "filename": "csharp-programs" }
     ]
   },
   {
-    "name": "reactjs", "label": "React JS",  "items": [
-      { "name": "basics", "label": "Basics", "rootpath": "reactjs", "filename": "reactjs-basics" },
-      { "name": "advanced", "label": "Advanced", "rootpath": "reactjs", "filename": "reactjs-advanced" }
-    ]
+    "name": "reactjs", "label": "React JS",  "rootpath": "reactjs", "filename": "reactjs-basics" 
   },
   {
     "name": "dotnet", "label": ".Net", "items": [

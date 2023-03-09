@@ -1,6 +1,7 @@
 ## C# Interview Questions & Answers
 
 ### Questions
+- [What is private constructor and what is its purpose?](#What-is-private-constructor-and-what-is-its-purpose)
 - [What is Method Overloading and Overriding?](#what-is-method-overloading-and-overriding)
 - [What are Events?](#what-are-events)
 - [What are Delegates?](#what-are-delegates)
@@ -49,13 +50,46 @@
 - [Explain Hashtable? ](#)
 - [What is Reflection?](#)
 - [Garbage Collection - Dispose Vs Finalize And IDisposable Pattern](#)
-- [](#)
-- [](#)
-- [](#)
+- [What are threads?](#)
+- [What is the use of Task and Async?](#)
+- [Explain Solid Principles?](#)
 - [](#)
 - [](#)
 - [](#)
 
+### What is private constructor and what is its purpose?
+
+Private constructor is a special instance constructor which is used in a class that contains static member only.
+
+If a class has one or more private constructor and no public constructor then other classes are not allowed to create instance of this class; this means you can neither create the object of the class nor can it be inherited by other classes.
+
+The main purpose of creating private constructor is to restrict the class from being instantiated when it contains every member as static.
+
+#### Example
+
+```
+    public class SingletonDemo
+    {
+        private static string CreatedOn;
+        private static SingletonDemo instance = null;
+
+        private SingletonDemo()
+        {
+            CreatedOn = DateTime.Now.ToLongTimeString();
+        }
+
+        public static SingletonDemo getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new SingletonDemo();
+            }
+            Console.WriteLine(CreatedOn);
+            return instance;
+        }
+    }
+```
+****
 #### What is Method Overloading and Overriding?
 ##### Method Overloading
 Method Overloading is a type of polymorphism. It has several names like “Compile Time Polymorphism” or “Static Polymorphism,” and sometimes it is called “Early Binding”.
@@ -71,10 +105,13 @@ Method Overriding means having two methods with the same name and same signature
 ****
 #### What are Events?
 
+An event is a notification sent by an object to signal the occurrence of an action
+
+[Read More](https://www.tutorialsteacher.com/csharp/csharp-event)
+
 ****
 #### What are Delegates?
 
-##### Delegate 
 - It is a reference type.
 - It is a function pointer or it holds a reference (pointer) to a function (method).
 - It is type safe.

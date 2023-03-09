@@ -41,7 +41,7 @@ function Layout() {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" noWrap>
-                            Full-Stack Interview Questions(.NET + React + Azure)
+                            Full-Stack Interview Questions (.Net + React + SQL + Azure)
                         </Typography>
                     </Toolbar>
                 </AppBar>
