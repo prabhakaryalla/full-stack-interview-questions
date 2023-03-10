@@ -30,8 +30,6 @@
 - [What are the types of Routing?](#)
 - [What is startup class?](#)
 - [What is ConfigureServices method and Configure method?](#)
-- [Dispose vs Finalize?](#)
-- [Garbage Collection in c#?](#)
 - [Explain CRUD methods?](#)
 - [What is JWT authentication?](#)
 - [Authorization scopes in JWT?](#)
