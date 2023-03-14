@@ -70,7 +70,7 @@ The main purpose of creating private constructor is to restrict the class from b
 
 #### Example
 
-```
+```csharp
     public class SingletonDemo
     {
         private static string CreatedOn;

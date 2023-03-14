@@ -12,7 +12,7 @@
 
 #### 1. From the below code, Is Class1 accessible outside its assembly?
    
-```
+```csharp
 class class1 { } // default is internal
 public class class2 { }
 ```
@@ -25,7 +25,7 @@ class2 is accessible from outside its assembly; class1 is not
 
 #### 2. How is the field exposed in current assembly from the below classes?
 
-```
+```csharp
 class A { int x;  } // x is private default
 class B { internal int x; }
 ```
@@ -37,7 +37,7 @@ B exposes field x to other types in the same assembly; A doesnot
 
 #### 3. What is the output of below code?
 
-```
+```csharp
 internal class A { }
 public class B : A { }
 ```
@@ -49,7 +49,7 @@ Error: Inconsistent accessibility: base class 'A' is less accessible than class 
 ---
 #### 4. What is the output of below code?
 
-```
+```csharp
 class BaseClass1 { protected virtual void Foo() { } }
 class Subclass1 : BaseClass1 { protected override void Foo() { } } 
 class Subclass2 : BaseClass1 { public override void Foo() { } } 
@@ -64,7 +64,7 @@ Error: 'Subclass2.Foo()': cannot change access modifiers when overriding 'protec
 
 #### 5. What is the output of below code?
 
-```
+```csharp
     class BaseClass
     {
         void Foo() { }  // Foo is private (default) 
@@ -87,7 +87,9 @@ Error: 'BaseClass.Foo()' is inaccessible due to its protection level
 
 consider the below class 
 
-``` class C { public void Foo() { } } ```
+```csharp 
+class C { public void Foo() { } } 
+```
 
 C’s (default) internal accessibility caps Foo’s accessibility. Therefore this means that even though C's Foo method is marked as public, it will be capped at internal because that's what the class's level is. 
 
@@ -98,7 +100,7 @@ It can still be useful to have the property marked public, because if later on y
 
 #### 1. What is the output of below code?
 
-```
+```csharp
 public class Car
 {
     public Car() { Console.WriteLine("Car"); }
@@ -132,7 +134,7 @@ Ford Drive Type
 
 #### 2. What is the output of below code?
 
-```
+```csharp
 public class Car
 {
     public void DriveType() { Console.WriteLine("Base Drive Type"); }
@@ -165,7 +167,7 @@ Derived Drive Type
 
 #### 3. What is the output of below code?
 
-```
+```csharp
 public class Car
 {
     public void DriveType() { Console.WriteLine("Base Drive Type"); }
@@ -203,7 +205,7 @@ Derived Drive Type
 
 #### 1. What is the output of below code?
 
-```
+```csharp
 try
 {
     int j = 0;
@@ -221,7 +223,7 @@ DivideByZeroException
 
 #### 2. What is the output of below code?
 
-```
+```csharp
 try
 {
     int j = 0;
@@ -241,7 +243,7 @@ Error: A previous catch clause already catches all exceptions of this or of a su
 
 #### 3. What is the output of below code?
 
-```
+```csharp
 try
 {
     int j = 0;
@@ -258,7 +260,7 @@ ArithmeticException
 
 #### 4. What is the output of below code?
 
-```
+```csharp
 try
 {
     int j = 0;
@@ -277,7 +279,7 @@ Error A previous catch clause already catches all exceptions of this or of a sup
 
 #### 5. What is the output of below code?
 
-```
+```csharp
 try
 {
     int j = 0;

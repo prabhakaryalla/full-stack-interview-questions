@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[941],{5551:function(e,t,s){e.exports=s.p+"static/media/dotnet-core-fundementals.e0da11a279941fcfd300.md"}}]);
