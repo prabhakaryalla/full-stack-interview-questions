@@ -1,17 +1,22 @@
 ## C# Interview Questions & Answers
 
 ### Questions
+
 - [What is private constructor and what is its purpose?](#what-is-private-constructor-and-what-is-its-purpose)
 - [What is difference between Private and Static Constructor?](#what-is-difference-between-private-and-static-constructor)
 - [Can abstract class have constructor?](#can-abstract-class-have-constructor)
 - [Why does abstract class needs a constructor?](#why-does-abstract-class-needs-a-constructor)
 - [What is Constructor Chaining?](#what-is-constructor-chaining)
+- [What is Static Keyword?](#what-is-static-keyword)
+- [Why use a singleton instead of static methods?](#why-use-a-singleton-instead-of-static-methods)
+- [Singleton Vs Static Classes?](#singleton-vs-static-classes)
+- [Real-world Examples of Singleton Class](#real-world-examples-of-singleton-class)
+-
 - [Garbage Collection - Dispose Vs Finalize And IDisposable Pattern](#garbage-collection---dispose-vs-finalize-and-idisposable-pattern)
 - [What is Method Overloading and Overriding?](#what-is-method-overloading-and-overriding)
 - [What are Events?](#what-are-events)
 - [What are Delegates?](#what-are-delegates)
 - [What is record type?](#what-is-record-type)
-- [What is static?](#what-is-static)
 - [What is Inheritance?](#what-is-inheritance)
 - [What is Abstraction and Encapsulation?](#)
 - [What are ref and out keywords?](#what-are-ref-and-out-keywords)
@@ -39,8 +44,6 @@
 - [Return types of async](#)
 - [Task.ConfigurateAwait(boolean)](#)
 - [Deffered and Immediate Execution](#)
-
-
 - [Can Multiple Catch Blocks executed?](#)
 - [Difference between Throw Exception and Throw Clause?](#)
 - [Difference between the System.Array.CopyTo() and System.Array.Clone()? ](#)
@@ -50,7 +53,6 @@
 - [Explain Anonymous type?](#)
 - [Explain Hashtable? ](#)
 - [What is Reflection?](#)
-
 - [What are threads?](#)
 - [What is the use of Task and Async?](#)
 - [Explain Solid Principles?](#)
@@ -115,6 +117,41 @@ Constructor Chaining is a concept when a constructor calls another constructor i
 [Example on Abstract class constructor](#https://www.c-sharpcorner.com/article/why-does-abstract-class-needs-a-constructor/)
 
 ***
+
+### What is Static Keyword?
+
+The static keyword in C# language is used to declare static classes and static class members. The static classes and static class members such as constructors, fields, properties, methods, and events are useful when only one copy of the object (class or class members) are needed and shared among all instances (objects) of a type (and members)
+
+[Read More](#https://www.c-sharpcorner.com/UploadFile/36bc15/static-keyword-in-C-Sharp/)
+
+***
+### Why use a singleton instead of static methods?
+### Singleton Vs Static Classes?
+
+Static classes are basically used when you want to store a single instance, data which should be accessed globally throughout your application. The class will be initialized at any time but mostly it is initialized lazily. Lazy initialization means it is initialized at the last possible moment of time. There is a disadvantage of using static classes. You never can change how it behaves after the class is decorated with the static keyword.
+
+Singleton Class instance can be passed as a parameter to another method whereas static class cannot
+
+Thread safe for singleton class instantiation
+
+Multithreaded Singleton
+
+[Read More](#https://www.c-sharpcorner.com/UploadFile/akkiraju/singleton-vs-static-classes/)
+
+***
+### Real-world Examples of Singleton Class
+
+
+* Managing Service Proxies
+* Managing Database Connections
+* Logging
+* Caching
+* Data Sharing
+* Application Configuration Management
+
+
+***
+
 
 ### Garbage Collection - Dispose Vs Finalize And IDisposable Pattern
 

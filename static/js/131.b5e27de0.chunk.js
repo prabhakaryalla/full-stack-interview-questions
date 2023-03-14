@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[131],{9131:function(e,s,i){e.exports=i.p+"static/media/reactjs-basics.c988ca9b409e673f3b64.md"}}]);
