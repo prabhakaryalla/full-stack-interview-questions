@@ -80,7 +80,7 @@ When we use the CreateDefaultBuilder method, out of the box we get :
 - Adds Routing
 - Adds IIS Integration
 
-```C#
+```csharp
 var host = new WebHostBuilder()
 	.UseKestrel()
 	.UseContentRoot(Directory.GetCurrentDirectory())
@@ -101,7 +101,7 @@ The Startup class is mandatory and it is the entry point of the application. Wit
 
 Yes, it is not necessary that the class name be "Startup". The ASP.net core application is a Console app and we have to configure a web host to start listening. The "Program" class does this configuration.
 
-```C#
+```csharp
 public class Program  
 {  
     public static void Main(string[] args)  
@@ -142,7 +142,7 @@ public class Program
 
 ASP.net core has built-in support for Dependency Injection. We can add services to DI container using this method. Following are ways to define ConfigureServices method in startup class.
 
-```C#
+```csharp
 public void ConfigureServices(IServiceCollection services)  
 {  
         services.AddMvc();  
@@ -151,7 +151,7 @@ public void ConfigureServices(IServiceCollection services)
 
 **Configure()**: Configures the middleware pipeline that controls how the application processes the HTTP requests and sends the response. This method is also used to configure middleware in HTTP pipeline. This method accept IApplicationBuilder as a parameter. This method may accept some optional parameter such as IHostingEnvironment and ILoggerFactory. Whenever any service is added to ConfigureServices method, it is available to use in this method.
 
-```C#
+```csharp
 public void Configure(IApplicationBuilder app)  
 {  
     app.UseMvc();  
@@ -212,10 +212,8 @@ Middleware consists of small modules executing in sequence to transform the inco
 
 One important thing to note is that the order of the middleware is important. The ASP.NET Core framework executes the middleware code in the same order in which you define it.
 
-<details>
-<summary>Code to add Middleware into Request Pipeline</summary>
-
-```C#
+Code to add Middleware into Request Pipeline
+```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
     app.UseMyMiddleware();
@@ -225,8 +223,6 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     });
 }
 ```
-</details>
-
 
 ***
 
@@ -249,7 +245,7 @@ The Run method is an extension method on IApplicationBuilder and accepts a param
 ``public delegate Task RequestDelegate(HttpContext context);``
 
 **Example**
-```C#
+```csharp
 public class Startup{
    public Startup(){  }
    public void Configure(IApplicationBuilder app, IHostingEnvironment env,
@@ -264,7 +260,7 @@ public class Startup{
 ```
 The above MyMiddleware function is not asynchronous and so will block the thread till the time it completes the execution. So, make it asynchronous by using async and await to improve performance and scalability.
 
-```C#
+```csharp
 public class Startup{
    public Startup() { }
    public void Configure(IApplicationBuilder app, IHostingEnvironment env){
@@ -277,7 +273,7 @@ public class Startup{
 ```
 **Configure Multiple Middleware using Run()**
 
-```C#
+```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env){
    app.Run(async (context) =>{
       await context.Response.WriteAsync("1st Middleware");
@@ -293,7 +289,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env){
 
 To configure multiple middleware, use Use() extension method. It is similar to Run() method except that it includes next parameter to invoke next middleware in the sequence
 
-```C#
+```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env){
    app.Use(async (context, next) =>{
       await context.Response.WriteAsync("1st Middleware!");
@@ -310,7 +306,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env){
 
  Lets consider the below example
 
-```C#
+```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
     app.Use(async (context, next) =>
@@ -353,7 +349,7 @@ The Map extension method is used to match request delegates based on a requestâ€
 
 In the following example, any request with the base path of /maptest will be handled by the pipeline configured in the HandleMapTest method.
 
-```C#
+```csharp
 private static void HandleMapTest(IApplicationBuilder app){
    app.Run(async context =>{
       await context.Response.WriteAsync("Map Test Successful");
@@ -368,7 +364,7 @@ In addition to path-based mapping, the MapWhen method supports predicate-based m
 
 Any predicate of type Func<HttpContext, bool> can be used to map requests to a new branch of the pipeline.
 
-```C#
+```csharp
 private static void HandleBranch(IApplicationBuilder app){
    app.Run(async context =>{
       await context.Response.WriteAsync("Branch used.");
@@ -388,7 +384,7 @@ public void ConfigureMapWhen(IApplicationBuilder app){
 ### Can maps be nested while adding middleware?
 Maps can also be nested
 
-```C#
+```csharp
 app.Map("/level1", level1App => {
    level1App.Map("/level2a", level2AApp => {
       // "/level1/level2a"
@@ -407,7 +403,7 @@ app.Map("/level1", level1App => {
 
 The custom middleware component is like any other .NET class with Invoke() method. However, in order to execute next middleware in a sequence, it should have RequestDelegate type parameter in the constructor. 
 
-```C#
+```csharp
 public class MyMiddleware
 {
     private readonly RequestDelegate _next;

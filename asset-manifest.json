@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/full-stack-interview-questions/static/css/main.c6423e84.css",
-    "main.js": "/full-stack-interview-questions/static/js/main.03ae9282.js",
+    "main.js": "/full-stack-interview-questions/static/js/main.ac9cae13.js",
     "static/js/90.c3db2b58.chunk.js": "/full-stack-interview-questions/static/js/90.c3db2b58.chunk.js",
     "static/js/547.0ebf23cf.chunk.js": "/full-stack-interview-questions/static/js/547.0ebf23cf.chunk.js",
     "static/js/434.441f8a64.chunk.js": "/full-stack-interview-questions/static/js/434.441f8a64.chunk.js",
     "static/js/639.f0a868fc.chunk.js": "/full-stack-interview-questions/static/js/639.f0a868fc.chunk.js",
-    "static/js/941.7123c2fd.chunk.js": "/full-stack-interview-questions/static/js/941.7123c2fd.chunk.js",
+    "static/js/941.437a7b3f.chunk.js": "/full-stack-interview-questions/static/js/941.437a7b3f.chunk.js",
     "static/js/337.c12dd09c.chunk.js": "/full-stack-interview-questions/static/js/337.c12dd09c.chunk.js",
     "static/js/838.61638555.chunk.js": "/full-stack-interview-questions/static/js/838.61638555.chunk.js",
     "static/js/395.3f555cff.chunk.js": "/full-stack-interview-questions/static/js/395.3f555cff.chunk.js",
     "static/js/964.b6a91b7d.chunk.js": "/full-stack-interview-questions/static/js/964.b6a91b7d.chunk.js",
     "static/js/787.a05e8bec.chunk.js": "/full-stack-interview-questions/static/js/787.a05e8bec.chunk.js",
-    "static/media/dotnet-core-fundementals.md": "/full-stack-interview-questions/static/media/dotnet-core-fundementals.a302ca6dbc002247de1a.md",
+    "static/media/dotnet-core-fundementals.md": "/full-stack-interview-questions/static/media/dotnet-core-fundementals.f9f1563e8b535f863389.md",
     "static/media/csharp-basics.md": "/full-stack-interview-questions/static/media/csharp-basics.3bb9db852ce58fe0258b.md",
     "static/media/csharp-programs.md": "/full-stack-interview-questions/static/media/csharp-programs.6bd00189fc1248581bf9.md",
     "static/media/azure.md": "/full-stack-interview-questions/static/media/azure.833e3325679096bc939d.md",
@@ -23,11 +23,11 @@
     "index.html": "/full-stack-interview-questions/index.html",
     "static/media/reactjs-advanced.md": "/full-stack-interview-questions/static/media/reactjs-advanced.31d6cfe0d16ae931b73c.md",
     "main.c6423e84.css.map": "/full-stack-interview-questions/static/css/main.c6423e84.css.map",
-    "main.03ae9282.js.map": "/full-stack-interview-questions/static/js/main.03ae9282.js.map",
+    "main.ac9cae13.js.map": "/full-stack-interview-questions/static/js/main.ac9cae13.js.map",
     "787.a05e8bec.chunk.js.map": "/full-stack-interview-questions/static/js/787.a05e8bec.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c6423e84.css",
-    "static/js/main.03ae9282.js"
+    "static/js/main.ac9cae13.js"
   ]
 }
