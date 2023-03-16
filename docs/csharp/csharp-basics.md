@@ -1,12 +1,22 @@
 ## C# Interview Questions & Answers
 
 ### Questions
-- [What is private constructor and what is its purpose?](#What-is-private-constructor-and-what-is-its-purpose)
+
+- [What is private constructor and what is its purpose?](#what-is-private-constructor-and-what-is-its-purpose)
+- [What is difference between Private and Static Constructor?](#what-is-difference-between-private-and-static-constructor)
+- [Can abstract class have constructor?](#can-abstract-class-have-constructor)
+- [Why does abstract class needs a constructor?](#why-does-abstract-class-needs-a-constructor)
+- [What is Constructor Chaining?](#what-is-constructor-chaining)
+- [What is Static Keyword?](#what-is-static-keyword)
+- [Why use a singleton instead of static methods?](#why-use-a-singleton-instead-of-static-methods)
+- [Singleton Vs Static Classes?](#singleton-vs-static-classes)
+- [Real-world Examples of Singleton Class](#real-world-examples-of-singleton-class)
+-
+- [Garbage Collection - Dispose Vs Finalize And IDisposable Pattern](#garbage-collection---dispose-vs-finalize-and-idisposable-pattern)
 - [What is Method Overloading and Overriding?](#what-is-method-overloading-and-overriding)
 - [What are Events?](#what-are-events)
 - [What are Delegates?](#what-are-delegates)
 - [What is record type?](#what-is-record-type)
-- [What is static?](#what-is-static)
 - [What is Inheritance?](#what-is-inheritance)
 - [What is Abstraction and Encapsulation?](#)
 - [What are ref and out keywords?](#what-are-ref-and-out-keywords)
@@ -18,7 +28,6 @@
 - [Difference between IEnumerable and IQuerable?](#difference-between-ienumerable-and-iquerable)
 - [Access Modifiers of Interface?](#access-modifiers-of-interface)
 - [What is Friend Assembly?](#what-is-friend-assembly)
-- [Static Constructor and Private Constructor](#)
 - [Why Properties ?, private set](#)
 - [Interfaces with same methods](#)
 - [Exentension Methods](#)
@@ -28,9 +37,6 @@
 - [Can we store different types in a array?](#)
 - [how to return different values from a method without using ref and out?](#)
 - [Can I pass ref and out in async methods?](#)
-- [When do we use private constructor](#)
-- [Can abstract class have constructor](#)
-- [why does abstract-class needs a constructor](#)
 - [How to do equality comparison for an object?](#)
 - [What are three virtual functions in an Object ?](#)
 - [Difference between process, task and thread](#)
@@ -38,8 +44,6 @@
 - [Return types of async](#)
 - [Task.ConfigurateAwait(boolean)](#)
 - [Deffered and Immediate Execution](#)
-- [What is use of static constructor?](#)
-- [What is Constructor Chaining?](#)
 - [Can Multiple Catch Blocks executed?](#)
 - [Difference between Throw Exception and Throw Clause?](#)
 - [Difference between the System.Array.CopyTo() and System.Array.Clone()? ](#)
@@ -49,7 +53,6 @@
 - [Explain Anonymous type?](#)
 - [Explain Hashtable? ](#)
 - [What is Reflection?](#)
-- [Garbage Collection - Dispose Vs Finalize And IDisposable Pattern](#)
 - [What are threads?](#)
 - [What is the use of Task and Async?](#)
 - [Explain Solid Principles?](#)
@@ -67,7 +70,7 @@ The main purpose of creating private constructor is to restrict the class from b
 
 #### Example
 
-```
+```csharp
     public class SingletonDemo
     {
         private static string CreatedOn;
@@ -89,6 +92,94 @@ The main purpose of creating private constructor is to restrict the class from b
         }
     }
 ```
+****
+### What is difference between Private and Static Constructor?
+
+1. A static constructor is called before the first instance is created. i.e. global initializer whereas Private constructor is called after the instance of the class is created. 
+2. Static constructor will be called first time when the class is referenced. Static constructor is used to initialize static members of the class. It is called by CLR, not by creating instance of the class. As it is called by CLR, it is not certain when it is called. But it is called when class is loaded. <br/> Static members will not be initialized either by private or public constructor.
+3. The static constructor will only be executed once. The private constructor will be executed each time it is called.
+
+****
+
+### Can abstract class have constructor?
+
+Yes, an abstract class can have a constructor, even though an abstract class cannot be instantiated.
+
+***
+
+### Why does abstract class needs a constructor?
+#### or
+### What is Constructor Chaining?
+<br/>
+
+Constructor Chaining is a concept when a constructor calls another constructor in the same class or its base class.
+
+[Example on Abstract class constructor](#https://www.c-sharpcorner.com/article/why-does-abstract-class-needs-a-constructor/)
+
+***
+
+### What is Static Keyword?
+
+The static keyword in C# language is used to declare static classes and static class members. The static classes and static class members such as constructors, fields, properties, methods, and events are useful when only one copy of the object (class or class members) are needed and shared among all instances (objects) of a type (and members)
+
+[Read More](#https://www.c-sharpcorner.com/UploadFile/36bc15/static-keyword-in-C-Sharp/)
+
+***
+### Why use a singleton instead of static methods?
+### Singleton Vs Static Classes?
+
+Static classes are basically used when you want to store a single instance, data which should be accessed globally throughout your application. The class will be initialized at any time but mostly it is initialized lazily. Lazy initialization means it is initialized at the last possible moment of time. There is a disadvantage of using static classes. You never can change how it behaves after the class is decorated with the static keyword.
+
+Singleton Class instance can be passed as a parameter to another method whereas static class cannot
+
+Thread safe for singleton class instantiation
+
+Multithreaded Singleton
+
+[Read More](#https://www.c-sharpcorner.com/UploadFile/akkiraju/singleton-vs-static-classes/)
+
+***
+### Real-world Examples of Singleton Class
+
+
+* Managing Service Proxies
+* Managing Database Connections
+* Logging
+* Caching
+* Data Sharing
+* Application Configuration Management
+
+
+***
+
+
+### Garbage Collection - Dispose Vs Finalize And IDisposable Pattern
+
+#### Garbage Collection:
+The Garbage Collector removes objects from the heap when they are unreachable by any part of your codebase. The .Net garbage collector will compact empty blocks of memory for the purpose of optimization. 
+
+The heap is categorized into three generations so it can handle long-lived and short-lived objects. Garbage collection primarily occurs with the reclamation of short-lived objects that typically occupy only a small part of the heap.
+
+- Generation 0: Newly created objects are in Generation 0. These objects on Generation 0 are collected frequently to ensure that short-lived objects are quickly collected and the memory is released. Objects that survive Generation 0, the collections are promoted to Generation 1. Most objects are reclaimed for garbage collection in Generation 0 and do not survive to the next generation. 
+
+- Generation 1: Objects that are collected less frequently than Generation 0 and contains longer-lived objects that were promoted from Generation 0. Objects that survive Generation 1, collection are promoted to Generation 2. 
+
+- Generation 2: Objects promoted from Generation 1 that are the longest-lived objects and collected infrequently. The overall strategy of the garbage collector is to collect and move longer-lived objects less frequently.
+
+#### Finalize:  
+This is used to release the unmanaged resources.
+
+#### IDisposable Interface:
+IDisposable has only one method that is Dispose method. We can use the dispose method for the same purpose to clean up the unmanaged resources. So when you are done with your object then simply call the dispose method.
+
+
+
+[Read More on Object Lifetime](#https://www.c-sharpcorner.com/UploadFile/b08196/object-lifetime-in-net-framework/)
+
+[Examples on Dispose vs Finalize and IDisposable](#https://www.c-sharpcorner.com/article/garbage-collection-dispose-vs-finalize-and-idisposable-pattern/)
+
+[Read More on IDiposable Interface](#https://www.c-sharpcorner.com/UploadFile/b08196/idisposable-interface-in-C-Sharp/)
+
 ****
 #### What is Method Overloading and Overriding?
 ##### Method Overloading
@@ -117,9 +208,9 @@ An event is a notification sent by an object to signal the occurrence of an acti
 - It is type safe.
 - Delegates are mainly used for the event handling and the callback methods.
 
-[Read More](https://www.c-sharpcorner.com/blogs/delegates-with-real-time-example-in-c-sharp)
+[Real Time Example on Delegate](https://www.c-sharpcorner.com/blogs/delegates-with-real-time-example-in-c-sharp)
 
-[Read More](https://www.codeproject.com/Articles/71154/C-Delegates-101-A-Practical-Example)
+[Practicle Example on Delegate](https://www.codeproject.com/Articles/71154/C-Delegates-101-A-Practical-Example)
 ****
 #### What is record type?
 

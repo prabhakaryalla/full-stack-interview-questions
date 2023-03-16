@@ -7,11 +7,16 @@
     ]
   },
   {
-    "name": "reactjs", "label": "React JS",  "rootpath": "reactjs", "filename": "reactjs-basics" 
+    "name": "reactjs", "label": "React JS",  "rootpath": "reactjs", 
+    "items": [
+      { "name": "fundementtals", "label": "Fundementals", "rootpath": "reactjs", "filename": "reactjs-fundementals" },
+      { "name": "advanced", "label": "Advanced", "rootpath": "reactjs", "filename": "reactjs-advanced" }
+   ]
   },
   {
-    "name": "dotnet", "label": ".Net", "items": [
-      {  "name": "dotnetcore", "label": ".Net Core", "rootpath": "dotnet", "filename": "dotnet-core" }
+    "name": "dotnet", "label": ".Net Core", "items": [
+      {  "name": "dotnetcore", "label": "Fundementals", "rootpath": "dotnet", "filename": "dotnet-core-fundementals" },
+      {  "name": "dotnetcore", "label": "Advanced", "rootpath": "dotnet", "filename": "dotnet-core-advanced" }
     ]
   },
   {
