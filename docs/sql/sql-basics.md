@@ -13,7 +13,7 @@
 - [How to Create Paramatrize stored Procedure in SQL server?](#how-to-create-paramatrize-stored-procedure-in-sql-server)
 - [How to call a stored procedure which returns the output parameter?](#how-to-call-a-stored-procedure-which-returns-the-output-parameter)
 - [Can we have multiple output parameters in stored procedures?](#can-we-have-multiple-output-parameters-in-stored-procedures)
-- [What is Return Value in SQL Server Stored Procedure?](#what-is-return-value-in-sql-server-stored-procedure)
+-  [What is Return Value in SQL Server Stored Procedure?](#what-is-return-value-in-sql-server-stored-procedure)
 - [What are the Disadvantages of Return Status Value in SQL Server?](#what-are-the-disadvantages-of-return-status-value-in-sql-server)
 - [What are the differences between Return Status Value and Output Parameters in SQL Server Stored Procedure?](#what-are-the-differences-between-return-status-value-and-output-parameters-in-sql-server-stored-procedure)
 - [What are advantages of Stored Procedure?](#what-are-advantages-of-stored-procedure)

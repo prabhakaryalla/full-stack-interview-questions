@@ -25,7 +25,10 @@
     ]
   },
   {
-    "name": "javascript", "label": "JavaScript", "rootpath": "javascript", "filename": "javascript"
+    "name": "javascript", "label": "JavaScript", "items": [
+      { "name": "fundementtals", "label": "Fundementals", "rootpath": "javascript", "filename": "javascript" },
+      { "name": "programs", "label": "Programs", "rootpath": "javascript", "filename": "js-programs" }
+    ]
   },
   {
     "name": "azure", "label": "Azure", "rootpath": "azure", "filename": "azure"

@@ -58,3 +58,102 @@ It's an open-source JavaScript framework and library developed by Facebook.
 [Read More](https://www.javatpoint.com/pros-and-cons-of-react)
 ***
 
+### What are Hooks?
+
+A Hook is a special function that lets you “hook into” React features. For example, useState is a Hook that lets you add React state to function components. We’ll learn other Hooks later.
+
+***
+### How to use State Hook?
+
+Example:
+
+```jsx
+function App() {
+
+  const [userQuery, setUserQuery] = useState('');
+
+  const updateUserQuery = (event) => {
+    setUserQuery(event.target.value)
+  }
+
+ const handleKeyPress = (event) => {
+  if(event.key == 'Enter')
+    searchQuery();
+ }
+
+  const searchQuery = () => {
+    window.open(`https://google.com/search?q=${userQuery}`, "_blank");
+  }
+
+  return (
+    <div className="App">
+      <h1>Hello Prabhakar</h1>
+      <div className='form'>
+        <input value={userQuery} onKeyPress={handleKeyPress}
+         onChange={updateUserQuery} />
+        <button onClick={searchQuery}>Search</button>
+      </div>
+    </div>
+  );
+}
+```
+***
+
+### How to use Effect Hook?
+
+useEffect lets us express different kinds of side effects after a component renders. Some effects might require cleanup so they return a function. Other effects might not have a cleanup phase, and don’t return anything.
+
+Examples:
+
+```jsx
+ useEffect(() => {    document.title = `You clicked ${count} times`;  });
+ ```
+
+```jsx
+ useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });
+```
+***
+
+### Custom Hook Example
+
+```js
+export const useFetch = (url, initialData) =>
+{
+    const [result, setResult] = useState(initialData);
+    useEffect(() => {
+        fetch(url)
+        .then(response => response.json())
+        .then(json => setResult(json));
+    }, [])
+
+    return result;
+}
+```
+
+
+
+***
+### What are the Rules of Hooks?
+Hooks are JavaScript functions, but you need to follow two rules when using them. We provide a linter plugin to enforce these rules automatically:
+
+**Only Call Hooks at the Top Level**
+
+Don’t call Hooks inside loops, conditions, or nested functions. Instead, always use Hooks at the top level of your React function, before any early returns. By following this rule, you ensure that Hooks are called in the same order each time a component renders. That’s what allows React to correctly preserve the state of Hooks between multiple useState and useEffect calls. 
+
+**Only Call Hooks from React Functions**
+
+Don’t call Hooks from regular JavaScript functions. Instead, you can:
+
+    ✅ Call Hooks from React function components.
+    ✅ Call Hooks from custom Hooks.
+
+
