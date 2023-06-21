@@ -3,9 +3,11 @@
 ### Questions
 - [What is React JS?](#what-is-react-js)
 - [Benefits of React JS?](#benefits-of-react-js)
-- [What is Code-Splitting?](#)
-- [What is Context?](#)
+- [What is Server Side Rendering?](#what-is-server-side-rendering)
+- [How Server-side Rendering (SSR) Works?](#how-server-side-rendering-ssr-works)
+- [What is Code-Splitting?](#what-is-code-splitting)
 - [What is Error Boundary?](#)
+- [What is Context?](#)
 - [What are Forwarding Ref?](#)
 - [What are Fragments?](#)
 - [What are Higher-Order Components?](#)
@@ -51,12 +53,109 @@ It's an open-source JavaScript framework and library developed by Facebook.
 * Creating Dynamic Web Applications Becomes Easier
 * Reusable Components
 * Performance Enhancement
+* Use of Virtual DOM to improve efficiency
 * Known to be SEO Friendly
 * The Benefit of Having JavaScript Library
 * Scope for Testing the Codes
 
 [Read More](https://www.javatpoint.com/pros-and-cons-of-react)
 ***
+### What is Server Side Rendering?
+With server-side rendering (SSR), the page is rendered on the server. This ensures that the page is available to users even before it loads on their browser.
+
+Server−side rendering in React is an excellent option for rendering web pages to improve initial page load speed, distribution of content, SEO, and user experience.
+
+---
+### How Server-side Rendering (SSR) Works?
+It is the process of rendering a webpage on the server before sending it to the browser. So, when the server returns a ready-to-render HTML page and the necessary JS scripts, all static elements are rendered immediately in the HTML.
+
+Meanwhile, the browser downloads and executes the JS code, which causes the page to become interactive. The browser now handles the client-side interactions on this page. The browser sends a request to the server via APIs for any new content or data; only the newly required information is fetched.
+
+---
+
+### What is Code-Splitting?
+
+Code-Splitting is a feature supported by bundlers like Webpack, Rollup, and Browserify which can create multiple bundles that can be dynamically loaded at runtime.
+
+Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app. While you haven’t reduced the overall amount of code in your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during the initial load.
+
+**import()**
+The best way to introduce code-splitting into your app is through the dynamic import() syntax.
+
+***Before:***
+```js
+import { add } from './math';
+console.log(add(16, 26));
+```
+***After:***
+```js
+import("./math").then(math => {
+  console.log(math.add(16, 26));
+});
+```
+
+**React.lazy**
+The React.lazy function lets you render a dynamic import as a regular component.
+***Before:***
+```js
+import OtherComponent from './OtherComponent';
+```
+***After:***
+```js
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+```
+This will automatically load the bundle containing the OtherComponent when this component is first rendered.
+
+The lazy component should then be rendered inside a Suspense component, which allows us to show some fallback content (such as a loading indicator) while we’re waiting for the lazy component to load.
+
+```js
+import React, { Suspense } from 'react';
+
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+
+function MyComponent() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <OtherComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+---
+
+### What is Error Boundary?
+
+Error Boundaries are React components that help when some modules fail to load due to any issue, an error will be triggered. These errors can be handled properly and provide a good experience to the user by the use of a suitable error page.
+
+```js
+import React, { Suspense } from 'react';
+import MyErrorBoundary from './MyErrorBoundary';
+
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+const AnotherComponent = React.lazy(() => import('./AnotherComponent'));
+
+const MyComponent = () => (
+  <div>
+    <MyErrorBoundary>
+      <Suspense fallback={<div>Loading...</div>}>
+        <section>
+          <OtherComponent />
+          <AnotherComponent />
+        </section>
+      </Suspense>
+    </MyErrorBoundary>
+  </div>
+);
+```
+----
+
+### What is Context?
+
+Usually, you will pass information from a parent component to a child component via props. But passing props can become verbose and inconvenient if you have to pass them through many components in the middle, or if many components in your app need the same information. Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
+
+----
 
 ### What are Hooks?
 

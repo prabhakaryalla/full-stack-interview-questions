@@ -15,6 +15,8 @@
 - [How do we configure KeyVaults?](#how-do-we-configure-keyvaults)
 - [What is connect and disconnected architecture?](#what-is-connect-and-disconnected-architecture)
 - [What are the different types of loading in Entity framework? when to use what?](#what-are-the-different-types-of-loading-in-entity-framework-when-to-use-what)
+- [How to connect App Service with Azure SQL Database with Managed Identity?](#how-to-connect-app-service-with-azure-sql-database-with-managed-identity)
+
 
 
 - [Difference between assembly and library?](#)
@@ -690,4 +692,211 @@ dbContext.Entry(usr).Reference(usr => usr.UserDetails).Load();
 5. When you have turned off Lazy Loading, use Explicit loading when you are not sure whether or not you will be using an entity beforehand.
 
 ***
+
+### How to connect App Service with Azure SQL Database with Managed Identity?
+
+A managed identity from Azure Active Directory (Azure AD) allows your app to easily access other Azure AD-protected resources such as Azure Key Vault or Azure SQL. The identity is managed by the Azure platform and does not require you to provision or rotate any secrets.
+
+We have two types of Managed Identities:
+ - System-assigned Identity
+ - User-assigned Identity
+
+
+**1.**  You can create an App Service or an Azure Function and use the code example below to retrieve the token using the Azure Identity client library via System-assigned identity
+
+```csharp
+var conn = (System.Data.SqlClient.SqlConnection)Database.Connection;
+var credential = new Azure.Identity.DefaultAzureCredential();
+var token = credential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
+conn.AccessToken = token.Token;
+```
+
+If you are using User-assigned Identity you would need to tweak the code as below. You can read about DefaultAzureCredential()
+
+```csharp
+string userAssignedClientId = ""; //Give Client ID of User Managed Identity
+var conn = new SqlConnection(connectionString);
+var credential = new Azure.Identity.DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityClientId = userAssignedClientId });
+var token = credential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default"}));
+conn.AccessToken = token.Token;
+```
+
+**2.** You can remove the User ID / Password from the connection string:
+
+```csharp
+Server=tcp:<AzSQLDBName>.database.windows.net,1433;Initial Catalog=<DBName>
+```
+
+**3.** Create a System Identity or User-Managed Identity and assign it to app service as per requirement.
+
+**4.** Create a System Identity or User-Managed Identity and assign it to app service as per requirement.
+
+- If the identity is system-assigned, the name is always the same as the name of your App Service app.
+- If the identity is user-assigned the name is the Managed Identity resource rather than the site name.
+
+```sql
+CREATE USER [<identity-name>] FROM EXTERNAL PROVIDER;
+ALTER ROLE db_datareader ADD MEMBER [<identity-name>];
+ALTER ROLE db_datawriter ADD MEMBER [<identity-name>];
+ALTER ROLE db_ddladmin ADD MEMBER [<identity-name>];
+GO
+```
+
+**5.** You can fetch the token and connect to the database using managed identity.
+
+
+**Detailed steps for MVC application**
+
+1. create a new project and install a few packages.
+
+```cmd
+mkdir PLSQLManagedIdentity
+cd PLSQLManagedIdentity
+dotnet new mvc
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Azure.Identity
+dotnet add package Microsoft.Data.SqlClient
+```
+
+2. Next add the class CustomAzureSqlAuthProvider to your project
+
+```csharp
+ public class CustomAzureSqlAuthProvider : SqlAuthenticationProvider
+    {
+
+        private static readonly string[] AzureSqlScopes =
+        {
+            "https://database.windows.net/.default"
+        };
+
+        private static readonly TokenCredential Credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityClientId = "23370fac-49ba-4aeb-b457-96fd4ef87456" });
+        // Here ManagedIdentityClientId is Appid of User Managed Identity
+        // We can get it by using below CloudShell commands
+        //Connect-AzureAD
+        // Get-AzureADServicePrincipal -SearchString <nameofUserManagedIdn=enity>
+
+
+        public override async Task<SqlAuthenticationToken> AcquireTokenAsync(SqlAuthenticationParameters parameters)
+        {
+            var tokenRequestContext = new TokenRequestContext(AzureSqlScopes);
+            var tokenResult = await Credential.GetTokenAsync(tokenRequestContext, default);
+
+            return new SqlAuthenticationToken(tokenResult.Token, tokenResult.ExpiresOn);
+        }
+
+        public override bool IsSupported(SqlAuthenticationMethod authenticationMethod)
+        {
+            return authenticationMethod.Equals(SqlAuthenticationMethod.ActiveDirectoryManagedIdentity);
+        }
+    }
+```
+
+3. Add CustomerContext, Customer Classes
+
+```csharp
+    public class CustomerContext : DbContext
+    {
+        public CustomerContext()
+        {
+        }
+
+        public CustomerContext(DbContextOptions<CustomerContext> options)
+            : base(options)
+        {
+            var customers = new[]
+            {
+                new Customer
+                {
+                    Id = Guid.Parse("9f35b48d-cb87-4783-bfdb-21e36012930a"),
+                    FirstName = "Wolfgang",
+                    LastName = "Ofner",
+                    Birthday = new DateTime(1989, 11, 23),
+                    Age = 30
+                },
+                new Customer
+                {
+                    Id = Guid.Parse("654b7573-9501-436a-ad36-94c5696ac28f"),
+                    FirstName = "Darth",
+                    LastName = "Vader",
+                    Birthday = new DateTime(1977, 05, 25),
+                    Age = 43
+                },
+                new Customer
+                {
+                    Id = Guid.Parse("971316e1-4966-4426-b1ea-a36c9dde1066"),
+                    FirstName = "Son",
+                    LastName = "Goku",
+                    Birthday = new DateTime(1937, 04, 16),
+                    Age = 83
+                }
+            };
+
+            Customer.AddRange(customers);
+            SaveChanges();
+        }
+
+        public DbSet<Customer> Customer { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.Property(e => e.Id);
+
+                entity.Property(e => e.Birthday);
+
+                entity.Property(e => e.FirstName).IsRequired();
+
+                entity.Property(e => e.LastName).IsRequired();
+            });
+        }
+    }
+
+    public class Customer
+    {
+        public Guid Id { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public DateTime? Birthday { get; set; }
+
+        public int? Age { get; set; }
+    }
+
+```
+
+4. Add dbcontext in Program.cs 
+
+```csharp
+builder.Services.AddDbContext<CustomerContext>(options =>
+{
+    SqlAuthenticationProvider.SetProvider(
+        SqlAuthenticationMethod.ActiveDirectoryManagedIdentity,
+        new CustomAzureSqlAuthProvider());
+    var sqlConnection = new SqlConnection(builder.Configuration.GetConnectionString("CustomerDatabase"));
+    options.UseSqlServer(sqlConnection);
+});
+
+```
+5. Add connection string in appsettings
+
+```json
+{
+"ConnectionStrings": {
+    "CustomerDatabase": "Server=tcp:eydemo01.database.windows.net,1433;Database=testdb;Authentication=Active Directory Managed Identity"
+  }
+}
+```
+
+6. Call the CustomerContext in any controller. on CustomerContext constructor we are adding sample records in sql.
+
+----
 

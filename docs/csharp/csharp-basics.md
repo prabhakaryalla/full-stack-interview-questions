@@ -10,8 +10,7 @@
 - [What is Static Keyword?](#what-is-static-keyword)
 - [Why use a singleton instead of static methods?](#why-use-a-singleton-instead-of-static-methods)
 - [Singleton Vs Static Classes?](#singleton-vs-static-classes)
-- [Real-world Examples of Singleton Class](#real-world-examples-of-singleton-class)
--
+- [Real-world Examples of Singleton Class](#real-world-examples-of-singleton-class)-
 - [Garbage Collection - Dispose Vs Finalize And IDisposable Pattern](#garbage-collection---dispose-vs-finalize-and-idisposable-pattern)
 - [What is Method Overloading and Overriding?](#what-is-method-overloading-and-overriding)
 - [What are Events?](#what-are-events)
@@ -214,7 +213,59 @@ An event is a notification sent by an object to signal the occurrence of an acti
 ****
 #### What is record type?
 
+Record type is a lightweight, immutable data type (or lightweight class) with primarily read-only properties. A record type is thread-safe, and because it is immutable, you cannot change it after it is created. Note that record types can only be initialized inside constructors.
 
+```csharp
+public record Member
+{
+    public int ID { get; init; }
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
+    public string Address { get; init; }
+}
+```
+
+```csharp
+var member = new Member
+{
+    Id=1,
+    FirstName="Prabhakara",
+    LastName="Yalla",
+    Address = "Kakinada"
+};
+
+var newMember = new Member
+{
+    Id = member.Id,
+    FirstName = member.FirstName,
+    LastName = member.LastName,
+    Address = "Bangalore"
+};
+```
+
+```csharp
+var member = new Member
+{
+    Id=1,
+    FirstName="Prabhakara",
+    LastName="Rao",
+    Address = "Yalla"
+};
+
+var newMember = member with { Address = "Bangalore" };
+```
+[Read More](https://www.c-sharpcorner.com/article/c-sharp-9-0-introduction-to-record-types/)
+[Read More](https://www.codeguru.com/csharp/record-types-c-sharp/)
+
+----
+
+#### What is Inheritance?
+Inheritance is a fundamental concept in object-oriented programming that allows us to define a new class based on an existing class. 
+
+
+Inheritance is a process in which one object acquires all the properties and behaviors of its parent object automatically.
+
+---
 
 
 
