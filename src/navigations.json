@@ -20,6 +20,12 @@
     ]
   },
   {
+    "name": "microservices", "label": "Microservices", "items": [
+      {  "name": "Docker", "label": "Docker", "rootpath": "microservices", "filename": "docker" },
+      {  "name": "kubernetes", "label": "Kubernetes", "rootpath": "microservices", "filename": "kubernetes" }
+    ]
+  },
+  {
     "name": "sql", "label": "SQL", "items": [
       {  "name": "sql", "label": "SQL", "rootpath": "sql", "filename": "sql-basics" }
     ]

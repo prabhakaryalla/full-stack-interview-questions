@@ -86,7 +86,10 @@ public interface IMoviment<T> where T : class
 
 One friendly approach could be using an Enum for the generic T
 ```csharp 
-public interface IMoviment<T> where T : MovimentEnum{string Walk();} 
+public interface IMoviment<T> where T : MovimentEnum 
+{ 
+    string Walk(); 
+} 
 ```
 
 This interface has three implementations, Cat, Dog, and Human class.
