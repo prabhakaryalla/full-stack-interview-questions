@@ -35,13 +35,18 @@
 - [What is LimitRange?](#what-is-limitrange)
 - [What is ResourceQuota?](#what-is-resourcequota)
 
-
+---
 ### What is Kubernetes?
 Kubernetes is an open-source Container Management tool that automates container deployment, container scaling, descaling, and container load balancing (also called a container orchestration tool)
 
+---
+
 ### Kubernetes Architecture
 
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
+
 ![Kubernetes Architecture](https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg)
+
 
 First we have Nodes (can be VM or Physical Servers) in a cluster. In Each those Nodes we run containers. In order to run containers we need Container Runtime in each node. We can access of those any nodes and  deploy & run the containers using docker run command. But consider for example if i am running on node 2, there is no enough memory and CPU inorder to run the container. Another scenario is i dont want to access the node directly if i have cluster of 100 nodes inorder to deploy and run the containers. 
 
@@ -213,8 +218,8 @@ spec:
 ---
 
 ### Can a POD use ReplicaSet?
-- No, we cannot directly associate a POD with ReplicaSet. In order to that, we need use Deployments.
 
+- No, we cannot directly associate a POD with ReplicaSet. In order to that, we need use Deployments.
 - ReplicaSet primary responsibility is to maintain desired number replicas in a given Deployment.
 
 ----
@@ -510,10 +515,10 @@ data:
 
 ### What are the different types of secrets in Kubernetes?
 
--**Opaque:** The most common type of secret. It allows us to store the arbitary key-value pairs as base64-encoded strings. It is used to store general purpose sensitive information.
--**Docker-registry:** Used for storing credentials to authenticate with a private Docker registry. It includes the server, username, password and email fields.
--**TLS:** Used for storing TLS certificates and private keys. It includes the tls.crt and tls.key fields.
--**Service Account:** Automatically created Secrets that provide credentials for accessing Kubernetes API. They are associated with service accounts and allows pods to authenticate with the API server.
+- **Opaque:** The most common type of secret. It allows us to store the arbitary key-value pairs as base64-encoded strings. It is used to store general purpose sensitive information.
+- **Docker-registry:** Used for storing credentials to authenticate with a private Docker registry. It includes the server, username, password and email fields.
+- **TLS:** Used for storing TLS certificates and private keys. It includes the tls.crt and tls.key fields.
+- **Service Account:** Automatically created Secrets that provide credentials for accessing Kubernetes API. They are associated with service accounts and allows pods to authenticate with the API server.
 
 ----
 

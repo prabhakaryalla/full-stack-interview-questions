@@ -33,6 +33,8 @@
 - [What are benefits of Moq?](#what-are-benefits-of-moq)
 - [How to use Moq?](#how-to-use-moq)
 - [What is the difference between swagger and postman?](#what-is-the-difference-between-swagger-and-postman))
+- [What is Dependency Injection?]
+- [What is the difference between swaggen and OpenAPI?]
 
 ***
 
@@ -430,15 +432,6 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
 IWebHostEnvironment environment = builder.Environment;
 ```
-
-WebApplicationBuilder returned by WebApplication.CreateBuilder(args) exposes Configuration and Environment properties:
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-...
-ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
-IWebHostEnvironment environment = builder.Environment;
 
 WebApplication returned by WebApplicationBuilder.Build() also exposes **Configuration** and **Environment**:
 
@@ -851,3 +844,8 @@ There are many differences between Postman and Swagger. Postman is a complete AP
 Postman also has a built-in console that lets you view your API request and response data in real-time, while Swagger does not. Finally, Postman has a paid version that gives you access to additional features, while Swagger does not.
 
 ***
+
+
+### What is Dependency Injection?
+
+Dependency injection is a programming technique that makes a class independent of its dependencies. There are three types of dependency injection — constructor injection, method injection, and property injection.

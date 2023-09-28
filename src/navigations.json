@@ -37,6 +37,9 @@
     ]
   },
   {
+    "name": "designpatterns", "label": "Design Paterns", "rootpath": "designpatterns", "filename": "designpatterns"
+  },
+  {
     "name": "azure", "label": "Azure", "rootpath": "azure", "filename": "azure"
   }
 ]
