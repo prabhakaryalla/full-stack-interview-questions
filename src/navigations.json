@@ -26,8 +26,9 @@
     ]
   },
   {
-    "name": "sql", "label": "SQL", "items": [
-      {  "name": "sql", "label": "SQL", "rootpath": "sql", "filename": "sql-basics" }
+    "name": "database", "label": "Database", "items": [
+      {  "name": "sql", "label": "SQL", "rootpath": "sql", "filename": "sql-basics" },
+      {  "name": "dynamodb", "label": "DynamoDB", "rootpath": "database", "filename": "dynamodb" }
     ]
   },
   {
