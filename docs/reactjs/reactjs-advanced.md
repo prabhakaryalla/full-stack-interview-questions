@@ -1,5 +1,8 @@
 
-- [What is React runtime and how React applies Hooks?]()
+- [What is React runtime and how React applies Hooks?](#what-is-react-runtime-and-how-react-applies-hooks)
+- [How does useState() works under the hood?](#how-does-usestate-works-under-the-hood)
+- [Why React Hooks?](#why-react-hooks)
+- [What is Diffing Algorithm?]()
 
 
 
@@ -452,7 +455,7 @@ useEffect(() => {
 ```
 ***
 
-Why React Hooks?
+### Why React Hooks?
 
 React hooks were introduced in React 16.8 as a new way of writing reusable logic in functional components. Prior to hooks, the only way to add stateful behavior to a functional component was to convert it to a class component, which can lead to more complex code and may not be as intuitive for developers who are used to working with functions.
 
@@ -468,7 +471,17 @@ Here are some reasons why we need React hooks:
 
 Overall, React hooks provide a more flexible and efficient way to manage state and lifecycle events in functional components. They allow developers to write cleaner and more maintainable code, making it easier to build and scale React applications.
 
+***
 
+### What is Diffing Algorithm?
+
+React's reconciliation algorithm is based on a diffing algorithm, which takes two trees (the current and new virtual DOM) and calculates the minimum set of changes required to transform the current tree into the new one. The key idea behind the algorithm is to perform the comparison in linear time, O(n), rather than a worst-case scenario of O(n^3).
+
+The algorithm makes two assumptions to achieve this:
+- Two elements of different types will produce different trees.
+- The developer can hint at which child elements may be stable across different renders by assigning a unique key prop to each child.
+
+By relying on these assumptions, React can quickly identify the differences between the two trees and make the necessary updates.
 
 
 

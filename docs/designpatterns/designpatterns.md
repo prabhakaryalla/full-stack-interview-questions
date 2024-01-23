@@ -450,7 +450,6 @@ public class EmployeeManagerFactory
         else if (employee.EmployeeTypeID == 2)
         {
             baseEmployeeFactory = new ContractEmployeeFactory(employee);
-            
         }
         return baseEmployeeFactory;
     }
@@ -496,3 +495,22 @@ Consider the below business requirement
   * Non Managerial Position is eligible for Dell Desktop
 
 
+**TODO
+
+
+
+---
+
+### What is Facade Design Patteren?
+
+Provide an unified interface to a set of interfaces in subsystem. Facade defines higher-level interface that makes subsystems easier to use.
+
+Falls under the category of Structural Design Pattern
+
+Evolved from the french word facade which means frontage or face
+
+
+***Choose Facade Design Pattern when***
+- We want to provide a simple interface to a complex system. Subsystems often get more complex as they eveolve
+- There are many dependencies between the client and implementation of abstraction
+- we wanted to layer the subsystems. Use facade to define an entry point to each susbsystem level
