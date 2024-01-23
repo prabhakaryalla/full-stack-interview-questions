@@ -1,7 +1,7 @@
 ## Javascript Interview Questions & Answers
 
 ### Questions
-
+- [What's the difference between var, const and let?](#whats-the-difference-between-var-const-and-let)
 - [Built-in Functions?]()
 
 - [What is the use of Window object?](#)
@@ -35,6 +35,114 @@
 - [](#)
 - [](#)
 - [](#)
+
+***
+
+### What's the difference between var, const and let?
+
+##### Var
+
+
+* var declarations are globally scoped or function/locally scoped.
+
+
+```js
+     var tester = "hey hi";
+    
+    function newFunction() {
+        var hello = "hello";
+    }
+    console.log(hello); // error: hello is not defined
+```
+
+
+* var variables can be re-declared and updated.
+* var variables are hoisted to the top of their scope and initialized with a value of undefined.
+
+
+##### Problems with Var
+
+
+```js
+    var greeter = "hey hi";
+    var times = 4;
+
+
+    if (times > 3) {
+        var greeter = "say Hello instead"; 
+    }
+    
+    console.log(greeter) // "say Hello instead"
+```
+
+
+If you have used greeter in other parts of your code, you might be surprised at the output you might get. 
+
+
+##### Let
+* let is block scoped
+* let can be updated but not re-declared.
+
+
+```js
+    let greeting = "say Hi";
+    let greeting = "say Hello instead"; // error: Identifier 'greeting' has already been declared
+```
+However, if the same variable is defined in different scopes, there will be no error
+
+
+```js
+    let greeting = "say Hi";
+    if (true) {
+        let greeting = "say Hello instead";
+        console.log(greeting); // "say Hello instead"
+    }
+    console.log(greeting); // "say Hi"
+```
+* Hoisting of let: Just like  var, let declarations are hoisted to the top. Unlike var which is initialized as undefined, the let keyword is not initialized. So if you try to use a let variable before declaration, you'll get a Reference Error.
+
+
+##### Const
+
+
+Variables declared with the const maintain constant values. const declarations share some similarities with let declarations.
+
+
+* const declarations are block scoped
+* const cannot be updated or re-declared
+
+
+This behavior is somehow different when it comes to objects declared with const. While a const object cannot be updated, the properties of this objects can be updated.
+
+
+```js
+    const greeting = {
+        message: "say Hi",
+        times: 4
+    }
+```
+
+
+while we cannot do this:
+
+
+```js
+    greeting = {
+        words: "Hello",
+        number: "five"
+    } // error:  Assignment to constant variable.
+```
+
+
+we can do this:
+
+
+```js
+    greeting.message = "say Hello instead";
+```
+
+
+* Hoisting of const: Just like let, const declarations are hoisted to the top but are not initialized.
 
 ***
 ### Array methods

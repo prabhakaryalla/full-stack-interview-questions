@@ -1,4 +1,19 @@
 ### What is the output of below?
+```js
+console.log(10 == "10")
+console.log(10 === "10");
+console.log(10 === 10);
+```
+
+**Output**
+```js
+true
+false
+true
+```
+***
+
+## What is the output of below?
 
 ```js
 var vehicle = {
