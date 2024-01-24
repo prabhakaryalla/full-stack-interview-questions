@@ -1,3 +1,26 @@
+### What is the ouput of below?
+```js
+console.log(test);
+var test;
+```
+**Output**
+```js
+undefined
+```
+***
+
+### What is the ouput of below?
+```js
+console.log(test);
+let test;
+```
+**Output**
+Just like var, let & const declarations are hoisted to the top. Unlike var which is initialized as undefined, the let keyword is not initialized.
+```js
+ReferenceError: Cannot access 'test' before initialization
+```
+***
+
 ### What is the output of below?
 ```js
 console.log(10 == "10")
