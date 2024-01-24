@@ -31,9 +31,13 @@ used in Gaiming -> Leaderboards, E-Commerce -> shopping cart info, User Profile 
 ### What is DynamoDB Terminology?
 
 **Items:**  An item is a row or record in the table.
+
 **Attributes:** Attributes describes the items (columns)
+
 **Primary Key:** Item is uniquely identified using primary key (Car Id + Customer ID)
+
 **Partition Key:** used to store data inn logical partitions (Car Id)
+
 **Sort Key:**  used to sort our data within the partition (Customer ID)
 
 Partition Key and Sort Key = a composite primary key
@@ -103,7 +107,6 @@ API Calls:
 - BatchGetItem
 - Query
 - Scan
-
 - PutItem
 - UpdateItem
 - DeleteItem
@@ -121,6 +124,7 @@ Transaction Operations  - For ACID Compliance
 ### What ae the different DynamoDB Indexes?
 
 **Global Secondary Index (GSI)** is an index with a partition key and a sort key that can differ from those on the base table
+
 **Local Secondary Index (LSI)** is an index with the same partition key as your table but a different sort key
 
 ***
