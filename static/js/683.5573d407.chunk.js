@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[683],{1683:function(e,s,i){e.exports=i.p+"static/media/ResouceGroups-keypoints.4a6a879adc4e18c02824.PNG"}}]);
