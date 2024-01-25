@@ -36,7 +36,161 @@ true
 ```
 ***
 
-## What is the output of below?
+### What's the result of the equality check?
+
+```js
+console.log(0.1 + 0.2 === 0.3 )
+```
+
+**Output**
+```js
+false
+```
+**Explanation**
+
+First, let's look at the value of 0.1 + 0.2:
+
+```js
+0.1 + 0.2; // => 0.30000000000000004
+```
+The sum of 0.1 and 0.2 numbers is not exactly 0.3, but slightly above 0.3.
+
+Due to how floating point numbers are encoded in binary, operations like addition of floating point numbers are subject to rounding errors.
+
+Simply put, comparing floats directly is not precise.
+
+Thus 0.1 + 0.2 === 0.3 is false.
+
+[Read More](https://0.30000000000000004.com/)
+
+***
+
+### What is the output of below code?
+
+```js
+function foo() {
+  let a = b = 0;
+  a++;
+  return a;
+}
+
+foo();
+console.log(typeof a);
+console.log(typeof b); 
+```
+
+**Output**
+```js
+undefined
+number
+```
+
+**Explanation**
+
+ #### Accidental global variable
+
+ Let's look at the line 2: let a = b = 0. This statement declares a local variable a. However, it does declare a global variable b.
+
+ No variable b is declared neither in the foo() scope or global scope. So JavaScript interprets b = 0 expression as window.b = 0. In other words, b is a global variable created accidentally.
+
+```js
+function foo() {
+  let a;
+  window.b = 0;
+  a = window.b;
+  a++;
+  return a;
+}
+
+foo();
+typeof a;        // => 'undefined'
+typeof window.b; // => 'number'
+```
+***
+
+### What is the value of clothes[0]?
+
+```js
+const clothes = ['jacket', 't-shirt'];
+clothes.length = 0;
+
+console.log(clothes[0]);
+```
+
+**Output**
+```js
+undefined
+```
+
+**Explanation**
+
+length property of the array object has a special behavior: 
+
+Reducing the value of the length property has the side-effect of deleting own array elements whose array index is between the old and new length values.
+
+As result when JavaScript executes clothes.length = 0, all clothes items are deleted.
+
+clothes[0] is undefined, because clothes array has been emptied.
+
+***
+
+### What is the content of numbers array?
+
+```js
+const length = 4;
+const numbers = [];
+for (var i = 0; i < length; i++);{
+  numbers.push(i + 1);
+}
+
+console.log(numbers);
+```
+
+**Output**
+```js
+[ 5 ]
+```
+
+**Explanation**
+
+Let's take a closer look at the semicolon ; that appears right before the opening curly brace {:
+
+***
+
+### What value is returned by arrayFromValue()?
+
+```js
+function arrayFromValue(item) {
+  return
+    [item];
+}
+
+console.log(arrayFromValue(10));
+```
+
+**Output**
+```js
+undefined
+```
+
+**Explanation**
+
+It's easy to miss the new line between the return keyword and [item] expression.
+
+However, this newline makes the JavaScript automatically insert a semicolon between return and [item] expression.
+
+Here's an equivalent code with the semicolon inserted after return:
+
+```js
+function arrayFromValue(item) {
+  return;
+  [item];
+}
+```
+
+***
+
+### What is the output of below?
 
 ```js
 var vehicle = {
@@ -85,6 +239,8 @@ sum(1)(2)(3)(4)(5)(result => console.log('result', result))
 such that the above function should log "result 15"
 
 **Answer**
+
+Currying is when you break down a function that takes multiple arguments into a series of functions that take part of the arguments.
 
 ```js
 function sum(a) {
@@ -253,6 +409,7 @@ if we use let  in anonymous function instead of var , we get the below exception
 ``Uncaught ReferenceError: Cannot access 'x' before initialization``
 
 ---
+
 ### what is the output?
 
 ```js
@@ -372,7 +529,7 @@ lodashClone {surname: 'Yalla', age: 33, family: {…}, quote: ƒ}
 age: 33family: {father: 'Satyanarayana', mother: 'Ammaji', siblings: Array(2)}
 quote: ƒ ()surname: "Yalla"[[Prototype]]: Object
 ```
-----
+***
 
 ### What is the output ?
 
@@ -570,7 +727,6 @@ console.log(4);
 ```
 
 **Output**
-
 ```js
 1
 4
@@ -581,9 +737,39 @@ console.log(4);
 **Explanation**
 setTimeout is an asynchronous. Javascript is actually non blocking asynchronous code like setTimeout. It goes to the next line. In line three also we have non blocking set timeout. In this case the delay is 0 milliseconds, but its still plays into background queue and in the meantime the javascript going to continue complete the rest of the code before it tries to pull off any synchronous functionality from that queue.
 
-------
+***
 
+### What is the output of below?
 
+```js
+let i;
+for (i = 0; i < 3; i++) {
+  const log = () => {
+    console.log(i);
+  }
+  setTimeout(log, 100);
+}
+```
+**Output**
+```js
+3
+3
+3
+```
+
+**Explanation**
+
+There are 2 phases behind executing this snippet.
+
+#### Phase 1
+- for() iterating 3 times. During each iteration a new function log() is created, which captures the variable i. Then setTimout() schedules an execution of log().
+- When for() cycle completes, i variable has value 3.
+
+#### Phase 2
+
+- The 3 scheduled log() callbacks are called by setTimeout(). log() reads the current value of variable i, which is 3, and logs to console 3.
+
+***
 
 
 
