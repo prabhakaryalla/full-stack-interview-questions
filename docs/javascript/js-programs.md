@@ -585,8 +585,24 @@ setTimeout is an asynchronous. Javascript is actually non blocking asynchronous 
 
 
 
+### What is the output of below?
 
+```js
+const x = {}
+const y = { key: "y"}
+const z = { key: "z"}
+x[y] = 123;
+x[z] = 456;
+console.log(x[y]);
+```
 
+**Output**
+
+```js
+456
+```
+
+--------
 
 
 
