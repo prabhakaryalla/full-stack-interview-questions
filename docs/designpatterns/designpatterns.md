@@ -12,7 +12,12 @@
 - [How to implement Factory Method Pattern?](#how-to-implement-factory-method-pattern)
 - [What is Abstract Factory Design Pattern?](#what-is-abstract-factory-design-pattern)
 
+- [What is Clean Architecture?](#what-is-clean-architecture)
+- [When should we use Clean Architecture?](#when-should-we-use-clean-architecture)
+- [What are Clean Architecture Rules?](#what-are-clean-architecture-rules)
+- [What belongs to Core Project in Clean Architecture?]
 
+- [Ntier vs Clean Architeture]
 -------------
 
 ### What are Design Patterns?
@@ -514,3 +519,48 @@ Evolved from the french word facade which means frontage or face
 - We want to provide a simple interface to a complex system. Subsystems often get more complex as they eveolve
 - There are many dependencies between the client and implementation of abstraction
 - we wanted to layer the subsystems. Use facade to define an entry point to each susbsystem level
+
+
+---
+
+### What is Clean Architecture?
+
+- The architecture formerly know as 
+    - Onion Architecture
+    - Hexgonal Architecture
+    - Port or Adapters
+
+- A domain centric approach to organize dependencies
+- Dependency on infrastrcuture concerns is minimized; keeping focus on domain logic
+
+---
+
+### When should we use Clean Architecture?
+- Practicing Domain-Driven Design and focus on domain model, not infrastrcuture
+- Complex business logic warrants highly testable architecture
+- Want architecture to help enforce policies, rather than relying on contributors to consistently do the right thing
+    - Similar to strong types or field visibility contraints
+---
+
+### What are Clean Architecture Rules?
+1. Model all business rules and entities in the core project
+2. All dependencies flow toward the Core project
+3. Inner projects should define interfaces; outer projects implement them
+
+----
+
+### What belongs to Core Project in Clean Architecture?
+
+- Interfaces
+
+-  Aggregates  (group several entities together and relationship forex: PurchaseOrder)             
+   Entities        
+   Value Objects (properties of entitites)
+- Domain Services
+- Domain Exceptions
+- Domain Events     
+  Event Handlers
+- Specifications
+- Validators    
+  Enums     
+  Custom Guards

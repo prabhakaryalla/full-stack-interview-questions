@@ -7,6 +7,7 @@
 - [Exception Handling](#exception-handling)
 
 
+
 ### Access Modifiers
 
 
@@ -291,3 +292,21 @@ finally { Console.WriteLine("Finally"); }
 #### Output:
 
 Unhandled exception. System.DivideByZeroException: Attempted to divide by zero.
+
+------
+
+####  What is the output of below code?
+
+```csharp
+class Test
+{
+    public static void Main() { Display(null); }
+
+    public static void Display(Object obj) { Console.WriteLine("Object"); }
+    public static void Display(string obj) { Console.WriteLine("String"); }
+}
+```
+#### Output:
+Object
+
+---

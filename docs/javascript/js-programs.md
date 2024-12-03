@@ -1,5 +1,35 @@
 ### What is the ouput of below?
 ```js
+console.log(1+2+'3'+4+5)
+```
+**Output**
+```js
+3345
+```
+***
+
+### What is the ouput of below?
+```js
+console.log([1,2,3] + 'a')
+```
+**Output**
+```js
+1,2,3a
+```
+***
+
+### What is the ouput of below?
+```js
+console.log([1,2,3] + 4)
+```
+**Output**
+```js
+1,2,34
+```
+***
+
+### What is the ouput of below?
+```js
 console.log(test);
 var test;
 ```

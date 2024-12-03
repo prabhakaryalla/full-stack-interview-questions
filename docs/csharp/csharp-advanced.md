@@ -3,7 +3,7 @@
 
 ----
 
-#### What are SOLID principles?
+### What are SOLID principles?
 
 SOLID principles are the design principles that enable us to manage several software design problems.  These principles provide us with ways to move from tightly coupled code and little encapsulation to the desired results of loosely coupled and encapsulated real business needs properly. SOLID is an acronym for the following.
 
