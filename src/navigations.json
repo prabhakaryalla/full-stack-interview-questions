@@ -16,7 +16,8 @@
   {
     "name": "dotnet", "label": ".Net Core", "items": [
       {  "name": "dotnetcore", "label": "Fundementals", "rootpath": "dotnet", "filename": "dotnet-core-fundementals" },
-      {  "name": "dotnetcore", "label": "Advanced", "rootpath": "dotnet", "filename": "dotnet-core-advanced" }
+      {  "name": "dotnetcore", "label": "Advanced", "rootpath": "dotnet", "filename": "dotnet-core-advanced" },
+      {  "name": "dotnetcore", "label": "Latest", "rootpath": "dotnet", "filename": "dotnet-core-latest" }
     ]
   },
   {
