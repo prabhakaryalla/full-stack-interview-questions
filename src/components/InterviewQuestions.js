@@ -6,6 +6,7 @@ import remarkSlug from 'remark-slug';
 import remarkExternalLinks from 'remark-external-links';
 import remarkGfm from 'remark-gfm';
 import { useParams } from 'react-router-dom';
+import rehypeRaw from 'rehype-raw';
 
 const InterviewQuestions = () => {
   let { rootpath, filename } = useParams();
@@ -33,6 +34,7 @@ const InterviewQuestions = () => {
     <div>
       <ReactMarkdown 
         remarkPlugins={[remarkSlug, remarkExternalLinks, remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
         components={{
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
