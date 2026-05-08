@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[102],{6102:function(e,s,t){e.exports=t.p+"static/media/kubernetes.51ec9f005baeeb3d54eb.md"}}]);

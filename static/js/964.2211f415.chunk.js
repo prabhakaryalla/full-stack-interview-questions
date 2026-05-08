@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[964],{1964:function(e,s,i){e.exports=i.p+"static/media/sql-basics.cae1f0e4e16c735ac784.md"}}]);

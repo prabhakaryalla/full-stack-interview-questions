@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[688],{3688:function(e,s,t){e.exports=t.p+"static/media/designpatterns.b157ace48ff138f1d568.md"}}]);
