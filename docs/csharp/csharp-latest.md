@@ -847,6 +847,9 @@ Both methods aggregate exceptions from all tasks.
 </details>
 
 
+<hr/>
+
+
 <details><summary><b>Can a static class have constructors? If yes, what kind?</b></summary>
 Yes, a static class can have a constructor, but it can only have a static constructor (also called a type initializer).  
 

@@ -537,3 +537,590 @@ This approach can be extended to handle other status codes or redirect users.
 
 <hr/>
 </details>
+
+
+<details><summary><b>Dependency Injection</b></summary>
+
+<details><summary><b>What are the differences between Singleton, Scoped, and Transient lifetimes in Dependency Injection?</b></summary>
+**Singleton**: A single instance is created and shared throughout the application's lifetime. All requests get the same instance.  
+**Scoped**: A new instance is created per scope, typically per web request in ASP.NET Core. All services within the same scope share the instance.  
+**Transient**: A new instance is created every time the service is requested. No sharing occurs.
+<details><summary><em>Example</em></summary>
+
+**Scenario**: Logging service with different lifetimes to demonstrate behavior in a web request.
+
+1. Define a logging service interface and implementation
+
+``` csharp
+public interface IOperationLogger
+{
+    Guid OperationId { get; }
+}
+
+public class OperationLogger : IOperationLogger
+{
+    public Guid OperationId { get; }
+
+    public OperationLogger()
+    {
+        OperationId = Guid.NewGuid();
+    }
+}
+```
+
+2. Register services with different lifetimes in Program.cs (ASP.NET Core 6+)
+``` csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<IOperationLogger, OperationLogger>(); // Singleton
+builder.Services.AddScoped<IOperationLogger, OperationLogger>();    // Scoped
+builder.Services.AddTransient<IOperationLogger, OperationLogger>(); // Transient
+
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+app.MapControllers();
+
+app.Run();
+```
+Note: For demonstration, register each lifetime with a different interface or use named registrations in a real project. Here, assume you comment/uncomment one registration at a time.
+
+3. Create a controller to inject and display the operation IDs
+
+```csharp
+[ApiController]
+[Route("[controller]")]
+public class TestController : ControllerBase
+{
+    private readonly IOperationLogger _logger1;
+    private readonly IOperationLogger _logger2;
+
+    public TestController(IOperationLogger logger1, IOperationLogger logger2)
+    {
+        _logger1 = logger1;
+        _logger2 = logger2;
+    }
+
+    [HttpGet]
+    public IActionResult Get()
+    {
+        return Ok(new
+        {
+            Logger1 = _logger1.OperationId,
+            Logger2 = _logger2.OperationId
+        });
+    }
+}
+```
+
+***Explanation***
+
+**Singleton**: Both Logger1 and Logger2 will have the same OperationId across all requests.
+**Scoped**: Both will have the same OperationId within a single request, but different requests get different IDs.
+**Transient**: Each will have a different OperationId even within the same request because new instances are created every time.
+</details>
+<hr/>
+</details>
+
+<details><summary><b>Examples of DI lifetime?</b></summary>
+Certainly! Here is one clear example for each DI lifetime (Singleton, Scoped, Transient) with explanation and code snippets:
+
+1. Singleton Example: Configuration Service
+
+Use case: Application-wide configuration data that rarely changes.  
+Behavior: One instance shared across the entire application lifetime.  
+
+``` csharp
+public interface IAppConfig
+{
+    string GetSetting(string key);
+}
+
+public class AppConfig : IAppConfig
+{
+    private readonly Dictionary<string, string> _settings;
+
+    public AppConfig()
+    {
+        // Load settings once
+        _settings = new Dictionary<string, string>
+        {
+            { "AppName", "MyApp" },
+            { "Version", "1.0" }
+        };
+    }
+
+    public string GetSetting(string key) => _settings.TryGetValue(key, out var value) ? value : null;
+}
+
+// Registration
+services.AddSingleton<IAppConfig, AppConfig>();
+```
+
+2. Scoped Example: Entity Framework Core DbContext
+
+Use case: Database context that should be unique per web request.  
+Behavior: One instance per HTTP request scope.  
+
+``` csharp
+public class AppDbContext : DbContext
+{
+    public DbSet<User> Users { get; set; }
+}
+
+// Registration in ASP.NET Core
+services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer("YourConnectionString")); // DbContext is Scoped by default
+```
+
+3. Transient Example: Email Sending Service
+
+Use case: Stateless service to send emails; new instance per use.  
+Behavior: New instance created every time requested.  
+
+``` csharp
+public interface IEmailSender
+{
+    Task SendEmailAsync(string to, string subject, string body);
+}
+
+public class EmailSender : IEmailSender
+{
+    public Task SendEmailAsync(string to, string subject, string body)
+    {
+        // Send email logic here
+        return Task.CompletedTask;
+    }
+}
+
+// Registration
+services.AddTransient<IEmailSender, EmailSender>();
+```
+</details>
+<details><summary><b>How does the DI container manage object disposal for different lifetimes?</b></summary>
+The Dependency Injection (DI) container in .NET manages the disposal of services that implement IDisposable based on their lifetimes:
+
+**Singleton**: Disposed when the container itself is disposed, typically at application shutdown.  
+**Scoped**: Disposed at the end of the scope, such as the end of an HTTP request in web applications.  
+**Transient**: Disposed immediately after use only if the container created the instance; otherwise, disposal is the caller's responsibility.  
+</details>
+<details><summary><b>Can you inject a Scoped service into a Singleton? Why or why not?</b></summary>
+Injecting a Scoped service into a Singleton is generally not recommended because the Singleton lives for the entire application lifetime, while Scoped services are created per scope (e.g., per HTTP request). This mismatch can cause the Scoped service to behave like a Singleton, leading to incorrect state sharing, potential memory leaks, or runtime errors.
+If you need to use a Scoped service inside a Singleton, you should inject an IServiceProvider or IServiceScopeFactory to create scopes manually and resolve the Scoped service within those scopes.
+
+<details><summary><em>Example</em></summary>
+
+Avoid Direct Injection of Scoped into Singleton
+
+1. Define services
+
+``` csharp
+public interface IScopedService
+{
+    Guid GetOperationId();
+}
+
+public class ScopedService : IScopedService
+{
+    private readonly Guid _operationId = Guid.NewGuid();
+
+    public Guid GetOperationId() => _operationId;
+}
+
+public interface ISingletonService
+{
+    Guid GetScopedOperationId();
+}
+
+public class SingletonService : ISingletonService
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public SingletonService(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    public Guid GetScopedOperationId()
+    {
+        // Create a scope to resolve the scoped service properly
+        using (var scope = _serviceProvider.CreateScope())
+        {
+            var scopedService = scope.ServiceProvider.GetRequiredService<IScopedService>();
+            return scopedService.GetOperationId();
+        }
+    }
+}
+```
+
+2. Register services in Program.cs
+
+``` csharp
+services.AddScoped<IScopedService, ScopedService>();
+services.AddSingleton<ISingletonService, SingletonService>();
+```
+3. Use in a controller
+
+``` csharp 
+[ApiController]
+[Route("[controller]")]
+public class TestController : ControllerBase
+{
+    private readonly ISingletonService _singletonService;
+
+    public TestController(ISingletonService singletonService)
+    {
+        _singletonService = singletonService;
+    }
+
+    [HttpGet]
+    public IActionResult Get()
+    {
+        var scopedId = _singletonService.GetScopedOperationId();
+        return Ok(new { ScopedOperationId = scopedId });
+    }
+}
+```
+
+***Explanation**
+
+The Singleton service does not directly inject the Scoped service.  
+Instead, it uses IServiceProvider.CreateScope() to create a new scope and resolve the Scoped service within that scope.  
+This ensures the Scoped service behaves correctly and avoids lifetime conflicts.  
+
+</details>
+<hr/>
+</details>
+<details><summary><b>What happens if you register the same service with multiple lifetimes?</b></summary>
+If you register the same service type multiple times with different lifetimes in the .NET Dependency Injection container, the last registration wins by default. This means the DI container will use the lifetime and implementation from the last registration for that service type when resolving dependencies.
+
+This can lead to unexpected behavior if you unintentionally register the same service multiple times with different lifetimes.
+<details><summary><em>Example</em></summary>
+
+1. Define a simple service interface and implementation
+``` csharp
+public interface IMessageService
+{
+    Guid GetOperationId();
+}
+
+public class MessageService : IMessageService
+{
+    private readonly Guid _operationId;
+
+    public MessageService()
+    {
+        _operationId = Guid.NewGuid();
+    }
+
+    public Guid GetOperationId() => _operationId;
+}
+```
+
+2. Register the same service multiple times with different lifetimes in Program.cs
+``` csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<IMessageService, MessageService>();  // First registration
+builder.Services.AddScoped<IMessageService, MessageService>();     // Second registration (overwrites Singleton)
+builder.Services.AddTransient<IMessageService, MessageService>();  // Third registration (overwrites Scoped)
+
+var app = builder.Build();
+
+app.MapGet("/", (IMessageService messageService1, IMessageService messageService2) =>
+{
+    // Both injected instances will be Transient (last registration)
+    return new
+    {
+        Id1 = messageService1.GetOperationId(),
+        Id2 = messageService2.GetOperationId()
+    };
+});
+
+app.Run();
+```
+
+3. Test behavior
+
+Both messageService1 and messageService2 will be different instances because the last registration is Transient.  
+The Singleton and Scoped registrations are effectively ignored.
+
+
+**Explanation**
+
+The DI container uses the last registered lifetime for the service type.  
+Previous registrations for the same service type are overridden.  
+To register multiple implementations, use named registrations or different interfaces.  
+</details>
+<hr/>
+</details>
+<details><summary><b>How to register multiple implementations of the same interface properly</b></summary>
+To register multiple implementations of the same interface in .NET Dependency Injection, you register each implementation separately with the same interface. When you inject IEnumerable<T>, the DI container provides all registered implementations. This allows you to work with all or select specific implementations at runtime.
+
+
+<details><summary><em>Example</em></summary>
+
+1. Define the interface and implementations
+``` csharp
+public interface INotificationService
+{
+    string Notify();
+}
+
+public class EmailNotificationService : INotificationService
+{
+    public string Notify() => "Email notification sent.";
+}
+
+public class SmsNotificationService : INotificationService
+{
+    public string Notify() => "SMS notification sent.";
+}
+```
+2. Register services in Program.cs
+``` csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<INotificationService, EmailNotificationService>();
+builder.Services.AddTransient<INotificationService, SmsNotificationService>();
+
+var app = builder.Build();
+```
+
+3. Inject and use all implementations in a controller or endpoint
+``` csharp
+app.MapGet("/notify", (IEnumerable<INotificationService> notificationServices) =>
+{
+    var results = notificationServices.Select(service => service.Notify()).ToList();
+    return results;
+});
+
+app.Run();
+```
+
+***Explanation***
+
+Both EmailNotificationService and SmsNotificationService are registered as INotificationService.  
+Injecting IEnumerable<INotificationService> gives access to all implementations.  
+You can iterate through them and invoke methods on each.  
+
+**Selecting Specific Implementation Based on Condition**
+1. Define interface and implementations (same as before)
+```csharp
+public interface INotificationService
+{
+    string Notify();
+    string NotificationType { get; }
+}
+
+public class EmailNotificationService : INotificationService
+{
+    public string NotificationType => "Email";
+    public string Notify() => "Email notification sent.";
+}
+
+public class SmsNotificationService : INotificationService
+{
+    public string NotificationType => "SMS";
+    public string Notify() => "SMS notification sent.";
+}
+```
+2. Register services in Program.cs
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<INotificationService, EmailNotificationService>();
+builder.Services.AddTransient<INotificationService, SmsNotificationService>();
+
+builder.Services.AddTransient<NotificationServiceFactory>();
+
+var app = builder.Build();
+```
+3. Create a factory to select implementation
+```csharp
+public class NotificationServiceFactory
+{
+    private readonly IEnumerable<INotificationService> _services;
+
+    public NotificationServiceFactory(IEnumerable<INotificationService> services)
+    {
+        _services = services;
+    }
+
+    public INotificationService GetNotificationService(string type)
+    {
+        return _services.FirstOrDefault(s => s.NotificationType.Equals(type, StringComparison.OrdinalIgnoreCase));
+    }
+}
+```
+
+4. Use factory in controller or endpoint
+``` csharp
+app.MapGet("/notify/{type}", (string type, NotificationServiceFactory factory) =>
+{
+    var service = factory.GetNotificationService(type);
+    if (service == null)
+        return Results.NotFound($"Notification type '{type}' not found.");
+
+    return Results.Ok(service.Notify());
+});
+
+app.Run();
+```
+
+***Explanation***
+
+All implementations are registered and injected as IEnumerable<INotificationService>.  
+The factory selects the appropriate implementation based on the type parameter.  
+The endpoint calls the factory to get the correct service and executes it.  
+</details>
+<hr/>
+</details>
+<details><summary><b>How do lifetimes affect thread safety of services?</b></summary>
+Lifetimes affect thread safety because:
+
+* Singleton services are shared across all threads and requests, so they must be thread-safe to avoid race conditions and data corruption.
+* Scoped services are created per scope (e.g., per HTTP request), so they are generally accessed by a single thread and have less thread safety concern.
+* Transient services are created every time they are requested, usually used briefly and by a single thread, so thread safety is less critical but still important if shared state exists.
+
+In summary, Singletons require careful thread-safe design, while Scoped and Transient services typically have fewer thread safety issues due to their shorter lifetimes and limited sharing.
+<details><summary><em>Example</em></summary>
+
+**Demonstrating Thread Safety Concerns with Singleton**
+1. Define a thread-unsafe Singleton service
+``` csharp
+public interface ICounterService
+{
+    int Increment();
+    int GetCount();
+}
+
+public class CounterService : ICounterService
+{
+    private int _count = 0;
+
+    public int Increment()
+    {
+        // Not thread-safe increment
+        _count++;
+        return _count;
+    }
+
+    public int GetCount() => _count;
+}
+```
+2. Register as Singleton in Program.cs
+``` csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<ICounterService, CounterService>();
+
+var app = builder.Build();
+```
+3. Create an endpoint to test concurrent access
+```csharp
+app.MapGet("/increment", (ICounterService counterService) =>
+{
+    var results = new List<int>();
+
+    // Simulate concurrent increments
+   .For(0, 1000, i =>
+    {
+        var newCount = counterService.Increment();
+        lock (results)
+        {
+            results.Add(newCount);
+        }
+    });
+
+    return Results.Ok(new { FinalCount = counterService.GetCount(), AllCounts = results });
+});
+
+app.Run();
+```
+
+***Explanation***
+
+The CounterService is a Singleton shared by all requests and threads.  
+The Increment method is not thread-safe, so concurrent calls can cause race conditions.  
+The final count may be less than expected due to lost updates.  
+To fix, use thread-safe constructs like Interlocked.Increment.  
+
+
+**Thread-Safe Version of Increment**
+``` csharp
+public int Increment()
+{
+    return Interlocked.Increment(ref _count);
+}
+```
+</details>
+<hr/>
+</details>
+<details><summary><b>If you resolve a Scoped service outside of an HTTP request scope, what happens?</b></summary>
+Short Summary
+If you resolve a Scoped service outside of an HTTP request scope (i.e., a valid DI scope), the .NET Dependency Injection container will throw an exception because there is no active scope to create or manage the Scoped service instance. Scoped services require a scope boundary (like an HTTP request) to manage their lifetime properly.
+<details><summary><em>Example</em></summary>
+
+1. Define a Scoped service
+``` csharp
+public interface IScopedService
+{
+    Guid GetOperationId();
+}
+
+public class ScopedService : IScopedService
+{
+    private readonly Guid _operationId = Guid.NewGuid();
+
+    public Guid GetOperationId() => _operationId;
+}
+```
+2. Register the service as Scoped in Program.cs
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IScopedService, ScopedService>();
+
+var app = builder.Build();
+```
+3. Attempt to resolve Scoped service outside HTTP request scope (e.g., in Main or background task)
+``` csharp
+// This code runs outside of any HTTP request scope
+try
+{
+    var scopedService = app.Services.GetRequiredService<IScopedService>();
+    Console.WriteLine($"Scoped service ID: {scopedService.GetOperationId()}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Exception: {ex.Message}");
+}
+```
+
+***Expected Behavior***
+
+The above code will throw an exception similar to:  
+csharpInvalidOperationException: Cannot resolve scoped service 'IScopedService' from root provider.
+
+This happens because the root service provider does not have an active scope to create the Scoped service.
+
+***How to Properly Resolve Scoped Service Outside HTTP Request***  
+Use IServiceScopeFactory to create a scope manually:  
+``` csharp
+using (var scope = app.Services.CreateScope())
+{
+    var scopedService = scope.ServiceProvider.GetRequiredService<IScopedService>();
+    Console.WriteLine($"Scoped service ID: {scopedService.GetOperationId()}");
+}
+```
+</details>
+<hr/>
+</details>
+
+</details>
+
+
+
+
