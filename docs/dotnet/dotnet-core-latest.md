@@ -1,4 +1,4 @@
-<details> <summary><strong>Policies</strong></summary>
+<details> <summary><strong>Authentication, Authorization & Policies</strong></summary>
 
 <details><summary><b>How does policy-based authorization work internally in ASP.NET Core?</b></summary>
 In ASP.NET Core, policy-based authorization works by defining authorization policies that consist of one or more requirements. When a user attempts to access a protected resource, the authorization system evaluates these policies by invoking registered authorization handlers for each requirement. Handlers inspect the user's claims and context to determine if the requirements are met. If all requirements succeed, access is granted; otherwise, it is denied. This process is integrated into the middleware pipeline and can be applied declaratively via attributes or programmatically.
@@ -535,12 +535,5 @@ This approach can be extended to handle other status codes or redirect users.
 <hr/>
 </details>
 
-
-
-
-
 <hr/>
 </details>
-
-
-
