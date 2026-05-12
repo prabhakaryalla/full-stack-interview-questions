@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/full-stack-interview-questions/static/css/main.c7165646.css",
-    "main.js": "/full-stack-interview-questions/static/js/main.8026ce3c.js",
+    "main.js": "/full-stack-interview-questions/static/js/main.ed10e610.js",
     "static/js/167.9e8f0d79.chunk.js": "/full-stack-interview-questions/static/js/167.9e8f0d79.chunk.js",
     "static/js/90.d7140279.chunk.js": "/full-stack-interview-questions/static/js/90.d7140279.chunk.js",
     "static/js/19.2f0c97f5.chunk.js": "/full-stack-interview-questions/static/js/19.2f0c97f5.chunk.js",
@@ -22,7 +22,7 @@
     "static/js/688.1ca2294c.chunk.js": "/full-stack-interview-questions/static/js/688.1ca2294c.chunk.js",
     "static/js/639.1842e09b.chunk.js": "/full-stack-interview-questions/static/js/639.1842e09b.chunk.js",
     "static/js/941.8aea245d.chunk.js": "/full-stack-interview-questions/static/js/941.8aea245d.chunk.js",
-    "static/js/511.b709cee1.chunk.js": "/full-stack-interview-questions/static/js/511.b709cee1.chunk.js",
+    "static/js/511.31877190.chunk.js": "/full-stack-interview-questions/static/js/511.31877190.chunk.js",
     "static/js/234.481c2eea.chunk.js": "/full-stack-interview-questions/static/js/234.481c2eea.chunk.js",
     "static/js/463.a3a3dcd5.chunk.js": "/full-stack-interview-questions/static/js/463.a3a3dcd5.chunk.js",
     "static/js/337.215d9a71.chunk.js": "/full-stack-interview-questions/static/js/337.215d9a71.chunk.js",
@@ -45,8 +45,8 @@
     "static/media/useState-1.png": "/full-stack-interview-questions/static/media/useState-1.22802235fd62211c88c4.png",
     "static/media/RG-Tags.jpg": "/full-stack-interview-questions/static/media/RG-Tags.3aecc9dd1cf7a64edef7.jpg",
     "static/media/csharp-latest.md": "/full-stack-interview-questions/static/media/csharp-latest.164337c39ebb1dce5ad0.md",
-    "static/media/dotnet-core-latest.md": "/full-stack-interview-questions/static/media/dotnet-core-latest.57f4e53a3c28318a549d.md",
     "static/media/dotnet-core-advanced.md": "/full-stack-interview-questions/static/media/dotnet-core-advanced.7fd710814ac5fe35a965.md",
+    "static/media/dotnet-core-latest.md": "/full-stack-interview-questions/static/media/dotnet-core-latest.0ac28020e3c575010e49.md",
     "static/media/kubernetes.md": "/full-stack-interview-questions/static/media/kubernetes.51ec9f005baeeb3d54eb.md",
     "static/media/dotnet-core-fundementals.md": "/full-stack-interview-questions/static/media/dotnet-core-fundementals.e6f17541b27e2296e9c2.md",
     "static/media/azure.md": "/full-stack-interview-questions/static/media/azure.17756011be3c265e0b8f.md",
@@ -65,11 +65,11 @@
     "index.html": "/full-stack-interview-questions/index.html",
     "static/media/csharp-advanced.md": "/full-stack-interview-questions/static/media/csharp-advanced.6dfeba81f82636059b11.md",
     "main.c7165646.css.map": "/full-stack-interview-questions/static/css/main.c7165646.css.map",
-    "main.8026ce3c.js.map": "/full-stack-interview-questions/static/js/main.8026ce3c.js.map",
+    "main.ed10e610.js.map": "/full-stack-interview-questions/static/js/main.ed10e610.js.map",
     "787.a05e8bec.chunk.js.map": "/full-stack-interview-questions/static/js/787.a05e8bec.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c7165646.css",
-    "static/js/main.8026ce3c.js"
+    "static/js/main.ed10e610.js"
   ]
 }
