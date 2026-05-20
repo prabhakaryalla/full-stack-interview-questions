@@ -1,19 +1,19 @@
 <details><summary><b>Query to find Total Matches Played, Won, Lost, Points</b></summary>
 
-|Id	|Team_1		    |Team_2		    |Winner       |
-|---|---------------|---------------|-------------|
-|1	|India			|Australia		|India        |
-|2	|England		|Sri Lanka		|Sri Lanka    |
-|3	|New Zealand	|India			|New Zealand  |
-|4	|India			|Sri Lanka		|India        |
-|5	|England		|India			|India        |
-|6	|South Africa	|West Indies	|South Africa |
-|7	|Australia		|England		|Australia    |
-|8	|West Indies	|India			|India        |
-|9	|South Africa	|New Zealand	|South Africa |
-|10	|Australia		|Sri Lanka		|Australia    |
-|11	|West Indies	|England		|West Indies  |
-|12	|New Zealand	|Sri Lanka		|New Zealand  |
+|Id	| Team_1		| Team_2		| Winner       |
+|---|---------------|---------------|--------------|
+|1	| India			| Australia		| India        |
+|2	| England		| Sri Lanka		| Sri Lanka    |
+|3	| New Zealand	| India			| New Zealand  |
+|4	| India			| Sri Lanka		| India        |
+|5	| England		| India			| India        |
+|6	| South Africa	| West Indies	| South Africa |
+|7	| Australia		| England		| Australia    |
+|8	| West Indies	| India			| India        |
+|9	| South Africa	| New Zealand	| South Africa |
+|10	| Australia		| Sri Lanka		| Australia    |
+|11	| West Indies	| England		| West Indies  |
+|12	| New Zealand	| Sri Lanka		| New Zealand  |
 
 ***Output:***  
 |team			| played	| won	| lost	| points |
@@ -67,7 +67,6 @@ group by team
 order by points desc
 
 ```
-
 </details>
 <hr/>
 </details>
