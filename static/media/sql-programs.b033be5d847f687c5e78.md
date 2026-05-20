@@ -66,11 +66,11 @@ from all_teams
 group by team
 order by points desc
 ```
-</details>
 <hr/>
 </details>
 
 <details><summary><b>Query to arrange the tasks based on priority</b></summary>
+
 | Id    | Name				| Priority		| Assignee   |
 |-------|-------------------|---------------|------------|
 | 1	    | Fix Payment		| Critical  	| Prabhakar  |
@@ -109,6 +109,7 @@ End Asc;
 </details>
 
 <details><summary><b>Scores with subject wise</b></summary>
+
 | Name		| Subject	| Score |
 |-----------|-----------|-------|
 | Ram		| English	| 80 	|
