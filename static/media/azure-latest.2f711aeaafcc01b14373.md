@@ -93,3 +93,48 @@ If you require more advanced or customizable load balancing algorithms (e.g., ro
 <hr/>
 </details>
 </details>
+
+<details> <summary><mark>📌Application Gateway</mark></summary>
+<details><summary><b>Explain the architecture of Azure Application Gateway and how it differs from Azure Load Balancer and Azure Front Door</b></summary>
+
+**Azure Application Gateway Architecture**
+Azure Application Gateway is a Layer 7 (Application Layer) load balancer that manages web traffic to your applications. It operates at the HTTP/HTTPS level and provides advanced routing capabilities, including URL-based routing, SSL termination, session affinity, and Web Application Firewall (WAF) integration.
+
+**Key Components:**   
+***Frontend IP Configuration***: Public or private IP address where the gateway listens for incoming traffic.  
+***Listeners***: Define how the gateway listens for incoming requests (protocol, port, and hostname).
+***Rules***: Define how requests are routed to backend pools based on listener and routing rules.
+***Backend Pools***: Groups of backend servers (VMs, VM scale sets, IP addresses, or fully qualified domain names) that serve the application.
+***HTTP Settings***: Define how the gateway communicates with backend servers (protocol, port, cookie-based affinity, connection draining).
+***Web Application Firewall (WAF)***: Provides protection against common web vulnerabilities and attacks (e.g., SQL injection, cross-site scripting).
+
+***Architecture Highlights:***  
+Operates at Layer 7, enabling content-based routing decisions.  
+Supports SSL termination and end-to-end SSL.  
+Provides session affinity (sticky sessions).  
+Integrates with WAF for security.  
+Supports autoscaling and zone redundancy.  
+
+
+***Differences from Azure Load Balancer and Azure Front Door***  
+| Feature/Aspect               | Azure Application Gateway                          | Azure Load Balancer                            | Azure Front Door                              |
+|-----------------------------|--------------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+| OSI Layer                   | Layer 7 (Application Layer)                       | Layer 4 (Transport Layer)                      | Layer 7 (Application Layer)                    |
+| Primary Use Case            | Web application delivery with advanced routing, SSL offload, WAF | High-performance TCP/UDP load balancing        | Global HTTP/HTTPS load balancing with CDN and acceleration |
+| Routing Capabilities        | URL-based routing, host-based routing             | Port and protocol-based load balancing         | URL-based routing, path-based routing, fast failover |
+| SSL Termination             | Supported (SSL offload and end-to-end SSL)        | Not supported                                  | Supported                                      |
+| Web Application Firewall    | Integrated WAF                                    | Not available                                  | Integrated WAF                                 |
+| Global vs Regional          | Regional (within a single Azure region)            | Regional                                       | Global (multi-region)                          |
+| Session Affinity            | Supported (cookie-based)                           | Supported (source IP affinity)                  | Supported                                      |
+| Backend Targets             | VMs, VMSS, IP addresses, FQDN                      | VMs, VMSS, IP addresses                         | Any publicly accessible endpoint               |
+| Use with CDN                | Typically used within region                       | Typically used within region                    | Acts as a global entry point with CDN features |
+| Autoscaling                | Supported                                         | Supported                                     | Supported                                      |
+
+***Summary***
+
+Azure Application Gateway is ideal for web applications needing advanced Layer 7 routing, SSL offloading, and security via WAF within a single region.  
+Azure Load Balancer is suited for high-throughput, low-latency Layer 4 load balancing of TCP/UDP traffic within a region.  
+Azure Front Door provides global, Layer 7 load balancing with CDN capabilities, optimized for delivering applications with low latency worldwide.  
+<hr/>
+</details>
+</details>
