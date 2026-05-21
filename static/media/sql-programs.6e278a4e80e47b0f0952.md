@@ -1,4 +1,4 @@
-<details><summary><b>Query to find Total Matches Played, Won, Lost, Points</b></summary>
+<details><summary><b>Total matches played, won, lost, points</b></summary>
 
 |Id	| Team_1		| Team_2		| Winner       |
 |---|---------------|---------------|--------------|
@@ -16,6 +16,7 @@
 |12	| New Zealand	| Sri Lanka		| New Zealand  |
 
 ***Output:***  
+
 |team			| played	| won	| lost	| points |
 |---------------|-----------|-------|-------|--------|
 |India			| 5			| 4		| 1		| 8      |
@@ -69,7 +70,7 @@ order by points desc
 <hr/>
 </details>
 
-<details><summary><b>Query to arrange the tasks based on priority</b></summary>
+<details><summary><b>Arrange the tasks based on priority</b></summary>
 
 | Id    | Name				| Priority		| Assignee   |
 |-------|-------------------|---------------|------------|
@@ -83,6 +84,7 @@ order by points desc
 | 9	    | Write Unit Tests	| Medium    	| Prabhakar  |
 
 ***Output:***
+
 | Id	 | Name	       			| Priority		| Assignee    |
 |--------|----------------------|---------------|-------------|
 | 1	     | Fix Payment			| Critical  	| Prabhakar   |
@@ -123,6 +125,7 @@ End Asc;
 | Karthik	| Science	| 96 	|
 
 ***Output***
+
 | Name		| Maths	| English	| Science |
 |-----------|-------|-----------|---------|
 | Karthik	| 99	| 87		| 96 	  |

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[785],{5002:function(e,s,i){e.exports=i.p+"static/media/sql-programs.6e278a4e80e47b0f0952.md"}}]);
