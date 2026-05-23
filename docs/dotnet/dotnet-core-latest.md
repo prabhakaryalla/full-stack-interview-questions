@@ -1,4 +1,140 @@
-<details> <summary><strong>Authentication, Authorization & Policies</strong></summary>
+<details> <summary><mark>📌OAUTH</mark></summary>
+<details><summary><b>What is Authorization Code Flow with PKCE? WHy is current best practice?</b></summary>
+
+***Summary:*** Authorization Code Flow with PKCE
+
+***What it is:***
+The Authorization Code Flow with Proof Key for Code Exchange (PKCE) is an OAuth 2.0 flow designed to securely obtain access tokens in public clients (e.g., mobile apps, single-page apps) that cannot securely store client secrets.
+
+
+***How it works:***
+It enhances the traditional Authorization Code Flow by adding a dynamically generated secret (code verifier) and its hashed version (code challenge) during the authorization request. This prevents interception and replay attacks by binding the authorization code to the client that requested it.
+
+
+***Why it’s best practice:***
+
+Eliminates the need for a client secret in public clients, reducing risk of secret leakage.
+Protects against authorization code interception attacks.
+Recommended by OAuth 2.0 Security Best Current Practice and widely adopted by identity providers.
+
+<details><summary><em>Example</em></summary>
+
+Step 1: Generate Code Verifier and Code Challenge
+``` csharp
+// Generate a random code verifier (a high-entropy cryptographic random string)
+string codeVerifier = GenerateRandomString(64);
+
+// Create a code challenge by SHA256 hashing the code verifier and base64-url encoding it
+string codeChallenge = Base64UrlEncode(SHA256Hash(codeVerifier));
+```
+
+Step 2: Redirect User to Authorization Endpoint with Code Challenge
+``` csharp
+plaintextGET https://authorization-server.com/auth?
+  response_type=code&
+  client_id=your_client_id&
+  redirect_uri=https://yourapp.com/callback&
+  scope=openid profile email&
+  code_challenge=codeChallenge&
+  code_challenge_method=S256
+```
+
+code_challenge is the hashed code verifier.
+code_challenge_method is usually S256 (SHA256).
+
+Step 3: User Authenticates and Authorizes
+
+User logs in and consents.
+Authorization server redirects back with an authorization code.
+
+Step 4: Exchange Authorization Code for Tokens
+``` csharp
+POST https://authorization-server.com/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code&
+code=authorization_code_received&
+redirect_uri=https://yourapp.com/callback&
+client_id=your_client_id&
+code_verifier=codeVerifier
+```
+
+The client sends the original code_verifier.
+The server verifies that the code_verifier matches the original code_challenge.
+
+Step 5: Receive Access Token and ID Token
+
+If verification succeeds, the server returns tokens.
+Client uses tokens to access protected resources.
+</details>
+<hr/>
+
+***Why Use PKCE?***
+
+Prevents interception of authorization code by attackers.  
+Does not require storing a client secret on public clients.  
+Recommended for mobile apps, SPAs, and any client that cannot securely store secrets.  
+
+<hr/>
+</details>
+<details><summary><b>What is ID Token and how it differs from an Access Token?</b></summary>
+
+***What is an ID Token?***
+Purpose:  
+The ID Token is a security token that contains information (claims) about the authenticated user. It is primarily used in OpenID Connect (OIDC) to verify the identity of the user who has authenticated.  
+
+Contents:  
+Typically includes user details such as:  
+
+User identifier (sub)  
+Authentication timestamp (auth_time)  
+User’s name, email, and other profile information (depending on scopes requested)  
+Issuer (iss), audience (aud), expiration (exp), etc.  
+
+Format:  
+Usually a JWT (JSON Web Token) that is digitally signed by the identity provider.
+
+Usage:  
+Used by the client application to authenticate the user and establish a session.
+
+***What is an Access Token?***
+
+Purpose:  
+The Access Token is a token that grants the client application authorization to access protected resources (APIs) on behalf of the user.
+
+Contents:  
+Contains information about:  
+
+The scopes or permissions granted  
+The user or client identity (depending on token type)  
+Expiration and issuer details  
+
+Format:  
+Can be a JWT or opaque token depending on the authorization server.  
+
+Usage:  
+Sent in API requests (usually in the Authorization header) to access protected resources.  
+| Aspect           | ID Token                                  | Access Token                              |
+|------------------|-------------------------------------------|------------------------------------------|
+| Purpose          | To authenticate the user (identity)       | To authorize access to APIs (permissions)|
+| Protocol         | Part of OpenID Connect (OIDC)              | Part of OAuth 2.0                        |
+| Audience         | Intended for the client application        | Intended for resource servers (APIs)    |
+| Contains         | User identity claims (e.g., user ID, email)| Permissions/scopes and user/client info |
+| Usage            | Used by client to establish user session   | Used by client to access protected APIs  |
+| Format           | Usually JWT, signed by identity provider   | JWT or opaque token                      |
+
+**Summary**
+
+ID Token = Who the user is (authentication).  
+Access Token = What the user/client can do (authorization).
+</details>
+<hr/>
+</details>
+
+</detaisl>
+
+
+<details> <summary><mark>📌Authentication, Authorization & Policies</mark></summary>
 
 <details><summary><b>How does policy-based authorization work internally in ASP.NET Core?</b></summary>
 In ASP.NET Core, policy-based authorization works by defining authorization policies that consist of one or more requirements. When a user attempts to access a protected resource, the authorization system evaluates these policies by invoking registered authorization handlers for each requirement. Handlers inspect the user's claims and context to determine if the requirements are met. If all requirements succeed, access is granted; otherwise, it is denied. This process is integrated into the middleware pipeline and can be applied declaratively via attributes or programmatically.
@@ -6,7 +142,7 @@ In ASP.NET Core, policy-based authorization works by defining authorization poli
 <b>Scenario:</b>  
 You want to understand how a simple policy with a claim requirement is evaluated internally.
 
-<b>Step 1: Define a Policy with a Claim Requirement</b>
+<b>Step 1: Define a Policy with a Claim Requirement</b>d
 
 ``` csharp
 services.AddAuthorization(options =>
@@ -153,14 +289,134 @@ The policy uses this requirement to authorize access.
 <hr/>
 </details>
 <details>
-<summary><b>Can you explain how multiple authorization policies can be combined or chained in ASP.NET Core?</b></summary><pre><b>
-Approach                                 Logic Type      Description</b>
-<hr />
-Single policy with multiple requirements    AND             All requirements must succeed
-Multiple [Authorize] attributes             OR              Any policy success grants access
-Custom requirement & handler                AND/OR          Custom complex logic
-Programmatic checks                         AND/OR          Fine-grained control in code
-</pre><hr/></details>
+<summary><b>Can you explain how multiple authorization policies can be combined or chained in ASP.NET Core?</b></summary>
+
+1. Single Policy with Multiple Requirements  
+You define one authorization policy that includes multiple requirements. The user must satisfy all requirements to be authorized.
+***Example:***  
+``` csharp
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("MultiRequirementPolicy", policy =>
+    {
+        policy.RequireClaim("Department", "Finance");
+        policy.RequireRole("Manager");
+    });
+});
+
+[Authorize(Policy = "MultiRequirementPolicy")]
+public IActionResult SecureAction()
+{
+    return View();
+}
+```
+
+This policy requires the user to have a "Department" claim with value "Finance" and be in the "Manager" role.
+
+2. Multiple [Authorize] Attributes  
+You apply multiple [Authorize] attributes on the same controller or action, each specifying a different policy. The user must satisfy all policies.  
+***Example:***  
+``` csharp
+[Authorize(Policy = "PolicyA")]
+[Authorize(Policy = "PolicyB")]
+public IActionResult SecureAction()
+{
+    return View();
+}
+```
+
+The user must satisfy both PolicyA and PolicyB to access the action.
+
+3. Custom Requirement & Handler  
+You create a custom authorization requirement and handler to implement complex or specific authorization logic.
+*** Example:***
+``` csharp
+// Custom requirement
+public class MinimumAgeRequirement : IAuthorizationRequirement
+{
+    public int MinimumAge { get; }
+    public MinimumAgeRequirement(int minimumAge)
+    {
+        MinimumAge = minimumAge;
+    }
+}
+
+// Custom handler
+public class MinimumAgeHandler : AuthorizationHandler<MinimumAgeRequirement>
+{
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimumAgeRequirement requirement)
+    {
+        if (!context.User.HasClaim(c => c.Type == ClaimTypes.DateOfBirth))
+        {
+            return Task.CompletedTask;
+        }
+
+        var dob = Convert.ToDateTime(context.User.FindFirst(c => c.Type == ClaimTypes.DateOfBirth).Value);
+        var age = DateTime.Today.Year - dob.Year;
+        if (dob > DateTime.Today.AddYears(-age)) age--;
+
+        if (age >= requirement.MinimumAge)
+        {
+            context.Succeed(requirement);
+        }
+
+        return Task.CompletedTask;
+    }
+}
+
+// Register in Startup.cs
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("AtLeast21", policy =>
+        policy.Requirements.Add(new MinimumAgeRequirement(21)));
+});
+
+services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
+
+// Usage
+[Authorize(Policy = "AtLeast21")]
+public IActionResult SecureAction()
+{
+    return View();
+}
+```
+
+4. Programmatic Checks
+You can perform authorization checks programmatically inside your code using IAuthorizationService.  
+***Example:***
+``` csharp
+public class MyController : Controller
+{
+    private readonly IAuthorizationService _authorizationService;
+
+    public MyController(IAuthorizationService authorizationService)
+    {
+        _authorizationService = authorizationService;
+    }
+
+    public async Task<IActionResult> SecureAction()
+    {
+        var authorized = await _authorizationService.AuthorizeAsync(User, null, "MultiRequirementPolicy");
+        if (!authorized.Succeeded)
+        {
+            return Forbid();
+        }
+
+        // Authorized logic here
+        return View();
+    }
+}
+```
+
+***Summary***
+| Concept                     | Description                                              | Example Usage                                |
+|-----------------------------|----------------------------------------------------------|----------------------------------------------|
+| Single Policy with Multiple Requirements | One policy with multiple requirements combined (AND) | [Authorize(Policy = "MultiRequirementPolicy")] |
+| Multiple [Authorize] Attributes | Multiple policies applied separately (AND)            | [Authorize(Policy = "PolicyA")][Authorize(Policy = "PolicyB")] |
+| Custom Requirement & Handler | Custom logic encapsulated in requirement and handler    | Custom age check with MinimumAgeRequirement |
+| Programmatic Checks          | Authorization checked in code using IAuthorizationService | Calling AuthorizeAsync in controller action |
+
+<hr/></details>
 <details>
 <summary><b>How do you pass parameters to authorization policies dynamically at runtime?</b></summary>
 To pass parameters dynamically to authorization policies at runtime, define the policy to accept parameters and provide those parameters when invoking the authorization check, typically by passing them through a custom requirement or resource context evaluated by the policy handler.
@@ -539,7 +795,7 @@ This approach can be extended to handle other status codes or redirect users.
 </details>
 
 
-<details><summary><b>Dependency Injection</b></summary>
+<details><summary><mark>📌Dependency Injection</mark></summary>
 
 <details><summary><b>What are the differences between Singleton, Scoped, and Transient lifetimes in Dependency Injection?</b></summary>
 **Singleton**: A single instance is created and shared throughout the application's lifetime. All requests get the same instance.  

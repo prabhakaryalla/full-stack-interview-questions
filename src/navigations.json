@@ -3,6 +3,7 @@
     "name": "csharp", "label": "C#",
     "items": [
        { "name": "basics", "label": "Basics", "rootpath": "csharp", "filename": "csharp-basics" },
+       { "name": "latest", "label": "Latest", "rootpath": "csharp", "filename": "csharp-latest" },
        { "name": "programs", "label": "Programs", "rootpath": "csharp", "filename": "csharp-programs" }
     ]
   },
@@ -30,6 +31,7 @@
   {
     "name": "database", "label": "Database", "items": [
       {  "name": "sql", "label": "SQL", "rootpath": "sql", "filename": "sql-basics" },
+      {  "name": "sqlprograms", "label": "Programs", "rootpath": "sql", "filename": "sql-programs" },
       {  "name": "dynamodb", "label": "DynamoDB", "rootpath": "databases", "filename": "dynamodb" }
     ]
   },
@@ -43,6 +45,12 @@
     "name": "designpatterns", "label": "Design Paterns", "rootpath": "designpatterns", "filename": "designpatterns"
   },
   {
-    "name": "azure", "label": "Azure", "rootpath": "azure", "filename": "azure"
+     "name": "Cloud", "label": "Cloud", "items": [
+      { "name": "azure", "label": "Azure", "rootpath": "azure", "filename": "azure" },
+      { "name": "azure", "label": "Azure Latest", "rootpath": "azure", "filename": "azure-latest" }
+     ]
+  },
+    {
+    "name": "dsa", "label": "DSA", "rootpath": "dsa", "filename": "designpatterns"
   }
 ]
