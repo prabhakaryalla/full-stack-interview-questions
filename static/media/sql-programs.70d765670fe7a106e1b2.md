@@ -1,3 +1,19 @@
+<details><summary><b>Count()</b></summary>
+|Id	|Name	    |Salary |
+|---|-----------|-------|
+|1	|Ramu	    |50000  |
+|2	|Sita	    |40000  |
+|3	|Karthik    |NULL   |
+
+``` sql
+select count(*) from Employees       -- 3
+select count(1) from Employees       -- 3
+select count(-1) from Employees      -- 3
+select count(salary) from Employees  -- 2
+```
+<hr/>
+</details>
+
 <details><summary><b>Total matches played, won, lost, points</b></summary>
 
 |Id	| Team_1		| Team_2		| Winner       |

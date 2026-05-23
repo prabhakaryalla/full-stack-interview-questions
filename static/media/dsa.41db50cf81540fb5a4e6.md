@@ -36,3 +36,13 @@
 **O/P**: true
 <hr/>
 </details>
+
+<details><summary><b>Remove the nth node from last</b></summary>
+
+**I/P**: 1 2 3 4 5
+n: 2
+**O/P**: 1 2 3 5
+<hr/>
+</details>
+
+
