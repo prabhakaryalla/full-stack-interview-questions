@@ -11,7 +11,8 @@
     "name": "reactjs", "label": "React JS",  "rootpath": "reactjs", 
     "items": [
       { "name": "fundementtals", "label": "Fundementals", "rootpath": "reactjs", "filename": "reactjs-fundementals" },
-      { "name": "advanced", "label": "Advanced", "rootpath": "reactjs", "filename": "reactjs-advanced" }
+      { "name": "advanced", "label": "Advanced", "rootpath": "reactjs", "filename": "reactjs-advanced" },
+      { "name": "latest", "label": "Latest", "rootpath": "reactjs", "filename": "reactjs-latest" }
    ]
   },
   {
@@ -50,7 +51,9 @@
       { "name": "azure", "label": "Azure Latest", "rootpath": "azure", "filename": "azure-latest" }
      ]
   },
-    {
-    "name": "dsa", "label": "DSA", "rootpath": "dsa", "filename": "designpatterns"
+  {
+    "name": "das", "label": "DSA", "items": [
+    { "name": "dsa", "label": "DSA", "rootpath": "dsa", "filename": "dsa" },
+    { "name": "leetcode", "label": "Leet Code", "rootpath": "dsa", "filename": "leetcode" }
   }
 ]

@@ -1,4 +1,95 @@
-<details><summary><b>Count()</b></summary>
+<details><summary><b>📌Count()</b></summary>
+
+|Id	|Name	    |Salary |
+|---|-----------|-------|
+|1	|Ramu	    |50000  |
+|2	|Sita	    |40000  |
+|3	|Karthik    |NULL   |
+|4  |Pratheek   |40000  |
+|5  |Bhaskar    |NULL   |
+
+``` sql
+select count(*) from Employees				  -- 5
+select count(1) from Employees				  -- 5
+select count(-1) from Employees				  -- 5
+select count(salary) from Employees			  -- 3
+select(count(distinct salary)) from Employees -- 2
+```
+<hr/>
+</details>
+
+<details><summary><b>📌 ORDER BY</b></summary>
+
+|Id	|Name	    |Salary |
+|---|-----------|-------|
+|1	|Ramu	    |50000  |
+|2	|Sita	    |40000  |
+|3	|Karthik    |NULL   |
+|4  |Pratheek   |40000  |
+|5  |Bhaskar    |NULL   |
+
+<details><summary><b>Ascending Order When NUlls are present</b></summary>
+
+``` sql 
+select Name, Salary from Employees
+order by Salary
+```
+**O/p**:
+
+Name	    |Salary |
+|-----------|-------|
+|Karthik    |NULL   |
+|Bhaskar    |NULL   |
+|Pratheek   |40000  |
+|Sita	    |40000  |
+|Ramu	    |50000  |
+
+</details>
+<hr/>
+
+<details><summary><b>Descending Order When NUlls are present</b></summary>
+
+``` sql 
+select Name, Salary from Employees
+order by Salary desc
+```
+**O/p**:
+
+Name	    |Salary |
+|-----------|-------|
+|Ramu	    |50000  |
+|Sita	    |40000  |
+|Pratheek   |40000  |
+|Bhaskar    |NULL   |
+|Karthik    |NULL   |
+
+</details>
+<hr/>
+
+
+<details><summary><b>How to display Nulls valuesat last in Ascending order</b></summary>
+
+``` sql 
+select Name, Salary from Employees
+order by 
+CASE When Salary is NULL Then 1 else 0 end, salary asc
+```
+**O/p**:
+
+Name	    |Salary |
+|-----------|-------|
+|Sita	    |40000  |
+|Pratheek   |40000  |
+|Ramu	    |50000  |
+|Bhaskar    |NULL   |
+|Karthik    |NULL   |
+
+</details>
+<hr />
+</details>
+
+<details><summary><b>📌NULL</b></summary>
+
 |Id	|Name	    |Salary |
 |---|-----------|-------|
 |1	|Ramu	    |50000  |
@@ -6,11 +97,182 @@
 |3	|Karthik    |NULL   |
 
 ``` sql
-select count(*) from Employees       -- 3
-select count(1) from Employees       -- 3
-select count(-1) from Employees      -- 3
-select count(salary) from Employees  -- 2
+select SUM(Salary) from Employees               -- 90000
+select * from Employees where Salary != 50000   -- One row only. Excludes Null
 ```
+
+<details><summary><b>SELECT NULL = NULL;</b></summary>
+
+``` sql
+SELECT * from Employees
+where NULL = NULL;
+```
+ **o/p**: Return zero rows
+
+**NULL = NULL** is NULL (or sometimes shown as UNKNOWN), not TRUE.
+
+***Explanation:***
+
+In SQL, NULL represents an unknown or missing value.  
+Comparing NULL to anything, including another NULL, using standard comparison operators (=, <>, <, >, etc.) results in NULL because the comparison is unknown.  
+Therefore, NULL = NULL does not evaluate to TRUE; it evaluates to NULL (unknown).  
+
+If you want to check if a value is NULL, you must use the IS NULL operator, for example:  
+
+``` sql
+NULL IS NULL;  -- This returns TRUE  
+```
+So, NULL = NULL returns NULL, not TRUE.Regenerate
+<hr/>
+</details>
+<details><summary><b> What is the difference between IS NULL and = NULL in SQL?</b></summary>
+
+The correct and standard way to check if a value is NULL.  
+
+``` sql
+SELECT * FROM table WHERE column IS NULL;
+```
+This query returns all rows where column has a NULL value.
+
+**Why?**
+
+In SQL, NULL means "unknown" or "missing" value.  
+Comparisons with NULL using = or <> do not return TRUE or FALSE but NULL (unknown).  
+IS NULL is a special operator designed to check for NULL explicitly.
+
+<hr/>
+</details>
+
+<details><summary><b>How does the GROUP BY clause handle NULL values?</b></summary>
+In SQL, the GROUP BY clause treats NULL vaues as a distinct group, just like any other value. Here’s how it handles NULL:
+Behavior of GROUP BY with NULL:
+
+Example:  
+Suppose you have a table Employees:  
+|Department |EmployeeName   |
+|-----------|---------------|
+|Sales      |Alice          |
+|Sales      |Bob            |
+|NULL       |Charlie        |
+|NULL       |David          |
+
+Query:  
+``` sql
+SELECT Department, COUNT(*)
+FROM Employees
+GROUP BY Department;
+```
+
+Result:
+
+|Department |COUNT(*)   |
+|-----------|-----------|
+|Sales      |2          |
+|NULL       |2          |
+
+The two rows with NULL in Department are grouped together as one group.
+
+Summary:
+
+GROUP BY treats all NULL values as one group.
+NULL values are not ignored or excluded; they form their own group.  
+This behavior allows aggregate functions to operate on rows with NULL values in the grouped columns.  
+
+If you want to treat NULL differently (e.g., replace NULL with a specific value for grouping), you can use functions like COALESCE:   
+```sql
+SELECT COALESCE(Department, 'Unknown') AS Dept, COUNT(*)
+FROM Employees
+GROUP BY COALESCE(Department, 'Unknown');
+```
+This groups NULLs under 'Unknown' instead.
+<hr/>
+</details>
+
+<details><summary><b>What is the difference between NULLIF and COALESCE functions?</b></summary>
+
+**NULLIF(expr1, expr2)** returns NULL if expr1 equals expr2; otherwise returns expr1. It’s used to convert specific values to NULL.
+
+**COALESCE(expr1, expr2, ..., exprN)** returns the first non-NULL value from the list. It’s used to replace NULLs with default values.
+
+<details><summary><em>Example</em></summary>
+
+|Id	|Name	    |Salary |
+|---|-----------|-------|
+|1	|Ramu	    |50000  |
+|2	|Sita	    |40000  |
+|3	|Karthik    |NULL   |
+|4  |Pratheek   |40000  |
+|5  |Bhaskar    |NULL   |
+
+``` sql
+SELECT Name,
+       NULLIF(Salary, 40000) AS SalaryNullIf,
+       COALESCE(Salary, 30000) AS SalaryCoalesce
+FROM Employees;
+```
+
+|Name	  |SalaryNullIf	    |SalaryCoalesce |
+|---------|-----------------|---------------|
+|Ramu	  |50000	        |50000          |
+|Sita     |NULL	            |40000          |
+|Karthik  |NULL	            |30000          |
+|Pratheek |NULL	            |40000          |
+|Bhaskar  |NULL	            |30000          |
+
+</details>
+<hr/>
+</details>
+
+<details><summary><b>Can aggregate functions like SUM or AVG return NULL? Under what conditions?</b></summary>
+Aggregate functions such as SUM and AVG return NULL when all the values they operate on are NULL or when there are no rows to aggregate.  
+
+If there is at least one non-NULL value, these functions return the sum or average of those non-NULL values, ignoring NULLs.  
+NULL values are excluded from the calculation, not treated as zero.
+
+**Explanation**:
+
+SUM(column) returns NULL if there are no non-NULL values in column.  
+AVG(column) returns NULL if there are no non-NULL values in column.  
+
+<details><summary><em>Example</em></summary>
+Suppose a table Salaries:
+
+|Employee   |Salary |
+|-----------|-------|
+|A          |50000  |
+|B          |NULL   |
+|C          |40000  |
+|D          |NULL   |
+
+``` sql
+SELECT SUM(Salary) AS TotalSalary, AVG(Salary) AS AverageSalary
+FROM Salaries;
+```
+**Result:**  
+
+|TotalSalary    |AverageSalary  |
+|---------------|---------------|
+|90000          |45000          |
+
+NULL salaries are ignored.
+
+If all salaries are NULL:
+
+|Employee   |Salary |
+|-----------|-------|
+|A          |NULL   |
+|B          |NULL   |
+
+Query result:
+
+|TotalSalary    |AverageSalary  |
+|---------------|---------------|
+|NULL           |NULL           |
+
+</details>
+<hr/>
+</details>
+
 <hr/>
 </details>
 
