@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinterview_questions=self.webpackChunkinterview_questions||[]).push([[339],{2339:function(e,s,t){e.exports=t.p+"static/media/azure-latest.96cdf02ee59735214311.md"}}]);
